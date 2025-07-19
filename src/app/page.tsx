@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { BackgroundPaths } from '@/components/BackgroundPaths'
 
 export default function Home() {
   const [loading, setLoading] = useState(true)
@@ -113,8 +114,11 @@ export default function Home() {
       {/* 主内容区域 */}
       <div className="ml-20 min-h-screen">
         {/* 首页 */}
-        <section id="home" className="h-screen flex items-center justify-center relative">
-          <div className="text-center z-10">
+        <section id="home" className="h-screen flex items-center justify-center relative overflow-hidden">
+          {/* 动态背景路径 */}
+          <BackgroundPaths />
+
+          <div className="text-center z-10 relative">
             <div className="font-orbitron text-6xl md:text-8xl font-bold mb-4">
               <span className="text-white">EVER</span>
               <span className="text-cyber-blue neon-blue">CALL</span>
