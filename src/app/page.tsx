@@ -144,17 +144,6 @@ export default function Home() {
           <div className="absolute top-10 right-10 text-cyber-blue font-mono text-xs">
             HTTPS://EVERCALL.AI/
           </div>
-          <div className="absolute bottom-10 left-10 text-gray-500 font-mono text-xs">
-            SCROLL
-          </div>
-          <div className="absolute bottom-10 right-10 text-gray-500 font-mono text-xs">
-            00 // 01 / 05
-          </div>
-
-          {/* 当前活动区块指示器 (调试用) */}
-          <div className="absolute top-10 left-1/2 transform -translate-x-1/2 text-cyber-orange font-mono text-xs">
-            ACTIVE: {activeSection.toUpperCase()}
-          </div>
         </section>
 
         {/* 角色展示区块 */}
