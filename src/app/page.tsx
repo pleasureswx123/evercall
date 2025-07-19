@@ -378,29 +378,41 @@ export default function Home() {
             </div>
 
             {/* Tab 选项卡 */}
-            <div className="flex justify-center mb-12">
-              <div className="flex border border-gray-600">
+            <div className="mb-12">
+              <div className="grid grid-cols-2 relative z-10">
                 <button
-                  onClick={() => setAboutTab('about')}
-                  className={`px-8 py-4 font-mono text-sm transition-all duration-300 ${
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    console.log('COMPANY clicked')
+                    setAboutTab('about')
+                  }}
+                  className={`font-mono text-sm pb-2 transition-all duration-300 cursor-pointer text-center relative z-20 ${
                     aboutTab === 'about'
-                      ? 'bg-cyber-blue text-black border-r border-cyber-blue'
-                      : 'text-gray-400 hover:text-cyber-blue border-r border-gray-600'
+                      ? 'text-cyber-blue border-b border-cyber-blue'
+                      : 'text-gray-400 border-b border-gray-600 hover:text-cyber-blue'
                   }`}
+                  style={{ pointerEvents: 'auto' }}
                 >
-                  <div>COMPANY</div>
-                  <div className="text-xs mt-1">公司介绍</div>
+                  <div>COMPANY <span className="text-xs">公司介绍</span></div>
                 </button>
                 <button
-                  onClick={() => setAboutTab('team')}
-                  className={`px-8 py-4 font-mono text-sm transition-all duration-300 ${
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    console.log('TEAM clicked')
+                    setAboutTab('team')
+                  }}
+                  className={`font-mono text-sm pb-2 transition-all duration-300 cursor-pointer text-center relative z-20 ${
                     aboutTab === 'team'
-                      ? 'bg-cyber-orange text-black'
-                      : 'text-gray-400 hover:text-cyber-orange'
+                      ? 'text-cyber-orange border-b border-cyber-orange'
+                      : 'text-gray-400 border-b border-gray-600 hover:text-cyber-orange'
                   }`}
+                  style={{ pointerEvents: 'auto' }}
                 >
-                  <div>TEAM</div>
-                  <div className="text-xs mt-1">团队介绍</div>
+                  <div>TEAM <span className="text-xs">团队介绍</span></div>
                 </button>
               </div>
             </div>
@@ -408,7 +420,7 @@ export default function Home() {
             {/* Tab 内容区域 */}
             <div className="min-h-[600px]">
               {aboutTab === 'about' && (
-                <div className="animate-fade-in">
+                <div key="about" className="animate-fade-in">
                   {/* 公司介绍内容 */}
                   <div className="text-center mb-12">
                     <div className="text-gray-400 max-w-4xl mx-auto leading-relaxed">
@@ -488,13 +500,7 @@ export default function Home() {
               )}
 
               {aboutTab === 'team' && (
-                <div className="animate-fade-in">
-                  {/* 团队介绍内容 */}
-                  <div className="text-center mb-12">
-                    <div className="text-cyber-orange font-mono text-sm mb-2">CORE TEAM ://</div>
-                    <div className="text-white font-orbitron text-2xl mb-8">核心团队</div>
-                  </div>
-
+                <div key="team" className="animate-fade-in">
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
                     <div className="border border-gray-600 p-6 hover:border-cyber-blue transition-colors text-center">
                       <div className="w-20 h-20 bg-cyber-blue bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
