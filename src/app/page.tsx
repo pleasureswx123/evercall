@@ -438,19 +438,19 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
               <div className="border border-gray-600 p-6 hover:border-cyber-blue transition-colors cursor-pointer">
-                <div className="text-cyber-blue font-mono text-sm mb-2">檢視詳情</div>
+                <div className="text-cyber-blue font-mono text-sm mb-2">检视詳情</div>
                 <div className="text-white font-orbitron text-xl mb-4">免费试用</div>
                 <div className="text-cyber-blue font-mono text-lg mb-2">FREE TRIAL</div>
                 <div className="text-gray-400 text-sm mb-4">立即体验Evercall的魅力，无需注册即可开始对话</div>
-                <div className="text-cyber-blue font-mono text-xs">VIEW MORE ></div>
+                <div className="text-cyber-blue font-mono text-xs">VIEW MORE</div>
               </div>
 
               <div className="border border-gray-600 p-6 hover:border-cyber-blue transition-colors cursor-pointer">
-                <div className="text-cyber-orange font-mono text-sm mb-2">檢視詳情</div>
+                <div className="text-cyber-orange font-mono text-sm mb-2">检视詳情</div>
                 <div className="text-white font-orbitron text-xl mb-4">下载应用</div>
                 <div className="text-cyber-orange font-mono text-lg mb-2">DOWNLOAD APP</div>
                 <div className="text-gray-400 text-sm mb-4">支持iOS和Android平台，随时随地与你的AI伙伴互动</div>
-                <div className="text-cyber-orange font-mono text-xs">VIEW MORE ></div>
+                <div className="text-cyber-orange font-mono text-xs">VIEW MORE</div>
               </div>
             </div>
 
