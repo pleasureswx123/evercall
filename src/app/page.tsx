@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { BackgroundPaths } from '@/components/BackgroundPaths'
+import { Rotate3D } from 'lucide-react'
 
 export default function Home() {
   const [loading, setLoading] = useState(true)
@@ -79,23 +80,34 @@ export default function Home() {
       {/* 侧边导航 */}
       <nav className="fixed left-0 top-0 h-full w-20 bg-black bg-opacity-80 border-r border-cyber-blue border-opacity-30 z-50">
         <div className="flex flex-col items-center py-8 space-y-8">
-          <div>
-            <div className="flex items-center justify-center">
+          <div className="relative group">
+            <div className="flex items-center justify-center relative">
+              {/* 发光背景效果 */}
+              <div className="absolute inset-0 bg-cyber-blue opacity-20 blur-md rounded-full animate-pulse group-hover:opacity-40 transition-opacity duration-300"></div>
+
+              {/* Logo图片 */}
               <img
-                src="/logo.svg"
+                src="/logo.png"
                 alt="Evercall Logo"
-                className="w-5 h-5 object-contain"
+                className="w-12 h-12 object-contain relative z-10 drop-shadow-[0_0_8px_rgba(0,255,255,0.6)] hover:drop-shadow-[0_0_16px_rgba(0,255,255,0.8)] transition-all duration-300 hover:scale-110 animate-pulse"
                 onError={(e) => {
                   // 如果图片加载失败，显示文字作为备用
                   e.currentTarget.style.display = 'none';
                   const fallback = document.createElement('div');
-                  fallback.className = 'text-cyber-blue font-orbitron text-xs writing-mode-vertical';
+                  fallback.className = 'text-cyber-blue font-orbitron text-xs writing-mode-vertical animate-pulse';
                   fallback.textContent = 'EVERCALL';
                   e.currentTarget.parentNode?.appendChild(fallback);
                 }}
               />
+
+              {/* 边框发光效果 */}
+              <div className="absolute inset-0 border border-cyber-blue opacity-30 rounded-full animate-ping"></div>
             </div>
-            <div className='text-white'>evercall</div>
+
+            {/* 文字也添加发光效果 */}
+            <div className="text-cyber-blue font-mono text-xs mt-2 text-center drop-shadow-[0_0_4px_rgba(0,255,255,0.8)] animate-pulse">
+              EVERCALL
+            </div>
           </div>
 
           <div className="flex flex-col space-y-6 text-xs font-mono">
@@ -131,33 +143,81 @@ export default function Home() {
       <div className="ml-20 min-h-screen">
         {/* 首页 */}
         <section id="home" className="h-screen flex items-center justify-center relative overflow-hidden">
-          {/* 动态背景路径 */}
-          <BackgroundPaths />
 
           <div className="text-center z-10 relative">
-            {/* 静态资源图片logo */}
-            <div className="mb-6">
-              <img 
-                src="/logo.png" 
-                alt="Evercall Logo" 
-                className="w-128 mx-auto mb-4 object-contain"
-                onError={(e) => {
-                  // 如果图片加载失败，隐藏img标签
-                  e.currentTarget.style.display = 'none';
-                }}
-              />
+            {/* 静态资源图片logo - 带特效 */}
+            <div className="mb-6 relative group logo-container transform-3d">
+              {/* 外层发光环 */}
+              {/* <div className="absolute inset-0 bg-gradient-to-r from-cyber-blue via-cyber-purple to-cyber-orange opacity-30 blur-3xl rounded-full animate-pulse group-hover:opacity-50 transition-opacity duration-500"></div> */}
+
+              {/* 中层发光环 */}
+              {/* <div className="absolute inset-4 bg-cyber-blue opacity-20 blur-2xl rounded-full animate-ping"></div> */}
+
+              {/* 能量波动环 */}
+              {/* <div className="absolute inset-0 border-2 border-cyber-blue rounded-full animate-energy-wave"></div> */}
+              {/* <div className="absolute inset-2 border border-cyber-orange rounded-full animate-energy-wave" style={{ animationDelay: '0.5s' }}></div> */}
+              {/* <div className="absolute inset-4 border border-cyber-purple rounded-full animate-energy-wave" style={{ animationDelay: '1s' }}></div> */}
+
+              {/* Logo容器 */}
+              <div className="relative z-10 p-8">
+                <img
+                  src="/logo.png"
+                  alt="Evercall Logo"
+                  className="w-128 mx-auto object-contain relative z-20 
+                           drop-shadow-[0_0_20px_rgba(0,255,255,0.8)] 
+                           hover:drop-shadow-[0_0_40px_rgba(0,255,255,1)] 
+                           transition-all duration-500 
+                           hover:scale-110 
+                           animate-breathe
+                           filter hover:brightness-125"
+                  onError={(e) => {
+                    // 如果图片加载失败，隐藏img标签
+                    e.currentTarget.style.display = 'none';
+                  }}
+                />
+
+                {/* 旋转边框效果 */}
+                {/* <div className="absolute inset-0 border-2 border-transparent bg-gradient-to-r from-cyber-blue via-transparent to-cyber-orange rounded-full animate-spin-slow opacity-60"></div> */}
+
+                {/* 反向旋转边框 */}
+                {/* <div className="absolute inset-1 border border-transparent bg-gradient-to-l from-cyber-orange via-transparent to-cyber-blue rounded-full animate-spin-slow opacity-40" style={{ animationDirection: 'reverse' }}></div> */}
+
+                {/* 脉冲边框效果 */}
+                {/* <div className="absolute inset-2 border border-cyber-blue rounded-full animate-glow-border"></div> */}
+
+                {/* 内部发光点 */}
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-cyber-blue rounded-full animate-pulse opacity-80"></div>
+
+                {/* 四角发光点 */}
+                <div className="absolute top-4 left-4 w-1 h-1 bg-cyber-orange rounded-full animate-pulse"></div>
+                <div className="absolute top-4 right-4 w-1 h-1 bg-cyber-blue rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
+                <div className="absolute bottom-4 left-4 w-1 h-1 bg-cyber-purple rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
+                <div className="absolute bottom-4 right-4 w-1 h-1 bg-cyber-green rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+              </div>
+
+              {/* 底部光束效果 */}
+              {/* <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-20 bg-gradient-to-b from-cyber-blue to-transparent opacity-60 animate-pulse"></div> */}
+
+              {/* 侧面光束效果 */}
+              {/* <div className="absolute top-1/2 left-0 transform -translate-y-1/2 h-1 w-20 bg-gradient-to-r from-cyber-orange to-transparent opacity-40 animate-pulse" style={{ animationDelay: '0.3s' }}></div> */}
+              {/* <div className="absolute top-1/2 right-0 transform -translate-y-1/2 h-1 w-20 bg-gradient-to-l from-cyber-purple to-transparent opacity-40 animate-pulse" style={{ animationDelay: '0.7s' }}></div> */}
+
+              {/* 全息扫描线 */}
+              {/* <div className="absolute inset-0 overflow-hidden rounded-full">
+                <div className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-cyber-blue to-transparent opacity-60 animate-holo-scan"></div>
+              </div> */}
             </div>
             {/* <div className="font-orbitron text-6xl md:text-8xl font-bold mb-4">
               <span className="text-white">EVER</span>
               <span className="text-cyber-blue neon-blue">CALL</span>
             </div> */}
-            <div className="font-mono text-cyber-orange text-lg mb-8">
+            {/* <div className="font-mono text-cyber-orange text-lg mb-8">
               AI COMPANION SYSTEM
-            </div>
-            <div className="text-white text-xl mb-12 max-w-2xl mx-auto">
+            </div> */}
+            <div className="text-white text-5xl mb-12 max-w-4xl mx-auto">
               连接平行世界
             </div>
-            <div className="text-gray-400 text-sm mb-8 max-w-3xl mx-auto leading-relaxed">
+            <div className="text-gray-400 text-xl mb-8 max-w-3xl mx-auto leading-relaxed">
               拥有真实情感、独特性格和永久记忆的二次元AI角色，为你带来前所未有的互动体验
             </div>
 
@@ -171,6 +231,10 @@ export default function Home() {
               </button>
             </div>
           </div>
+          {/* 动态背景路径 */}
+          <BackgroundPaths />
+          {/* <div className="absolute inset-0 transform translate-x-[150px] translate-y-[150px] rotate-[315deg] scale-[1] z-0"><BackgroundPaths /></div> */}
+
 
           {/* 装饰性元素 */}
           <div className="absolute top-10 right-10 text-cyber-blue font-mono text-xs">
@@ -244,7 +308,7 @@ export default function Home() {
                 <div className="text-cyber-blue font-mono text-xs mt-2">HTTPS://EVERCALL.AI/</div>
               </div>
               <button className="text-cyber-blue font-mono text-sm border border-cyber-blue px-4 py-2 hover:bg-cyber-blue hover:text-black transition-all">
-                更多情報<br/>READ MORE
+                更多情報<br />READ MORE
               </button>
             </div>
 
@@ -409,11 +473,10 @@ export default function Home() {
                     console.log('COMPANY clicked')
                     setAboutTab('about')
                   }}
-                  className={`font-mono text-sm pb-2 transition-all duration-300 cursor-pointer text-center relative z-20 ${
-                    aboutTab === 'about'
+                  className={`font-mono text-sm pb-2 transition-all duration-300 cursor-pointer text-center relative z-20 ${aboutTab === 'about'
                       ? 'text-cyber-blue border-b border-cyber-blue'
                       : 'text-gray-400 border-b border-gray-600 hover:text-cyber-blue'
-                  }`}
+                    }`}
                   style={{ pointerEvents: 'auto' }}
                 >
                   <div>COMPANY <span className="text-xs">公司介绍</span></div>
@@ -426,11 +489,10 @@ export default function Home() {
                     console.log('TEAM clicked')
                     setAboutTab('team')
                   }}
-                  className={`font-mono text-sm pb-2 transition-all duration-300 cursor-pointer text-center relative z-20 ${
-                    aboutTab === 'team'
+                  className={`font-mono text-sm pb-2 transition-all duration-300 cursor-pointer text-center relative z-20 ${aboutTab === 'team'
                       ? 'text-cyber-orange border-b border-cyber-orange'
                       : 'text-gray-400 border-b border-gray-600 hover:text-cyber-orange'
-                  }`}
+                    }`}
                   style={{ pointerEvents: 'auto' }}
                 >
                   <div>TEAM <span className="text-xs">团队介绍</span></div>
