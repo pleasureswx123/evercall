@@ -20,7 +20,7 @@ export default function Home() {
         }
         return prev + 2
       })
-    }, 50)
+    }, 100)
 
     return () => clearInterval(timer)
   }, [])
@@ -52,9 +52,24 @@ export default function Home() {
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
         <div className="text-center">
-          <div className="text-cyber-blue font-orbitron text-4xl mb-8 animate-pulse-glow">
+          {/* <div className="text-cyber-blue font-orbitron text-4xl mb-8 animate-pulse-glow">
             EVERCALL
-          </div>
+          </div> */}
+          <img
+            src="/logo.png"
+            alt="Evercall Logo"
+            className="w-64 mx-auto object-contain relative z-20 
+                           drop-shadow-[0_0_20px_rgba(0,255,255,0.8)] 
+                           hover:drop-shadow-[0_0_40px_rgba(0,255,255,1)] 
+                           transition-all duration-500 
+                           hover:scale-110 
+                           animate-breathe
+                           filter hover:brightness-125"
+            onError={(e) => {
+              // 如果图片加载失败，隐藏img标签
+              e.currentTarget.style.display = 'none';
+            }}
+          />
           <div className="text-white font-mono text-sm mb-4">
             LOADING - {loadingProgress}% <span className="loading-dots"></span>
           </div>
