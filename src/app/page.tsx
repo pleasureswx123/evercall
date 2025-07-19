@@ -79,9 +79,25 @@ export default function Home() {
       {/* 侧边导航 */}
       <nav className="fixed left-0 top-0 h-full w-20 bg-black bg-opacity-80 border-r border-cyber-blue border-opacity-30 z-50">
         <div className="flex flex-col items-center py-8 space-y-8">
-          <div className="text-cyber-blue font-orbitron text-xs writing-mode-vertical">
-            EVERCALL
+          <div>
+            <div className="flex items-center justify-center">
+              <img
+                src="/logo.svg"
+                alt="Evercall Logo"
+                className="w-5 h-5 object-contain"
+                onError={(e) => {
+                  // 如果图片加载失败，显示文字作为备用
+                  e.currentTarget.style.display = 'none';
+                  const fallback = document.createElement('div');
+                  fallback.className = 'text-cyber-blue font-orbitron text-xs writing-mode-vertical';
+                  fallback.textContent = 'EVERCALL';
+                  e.currentTarget.parentNode?.appendChild(fallback);
+                }}
+              />
+            </div>
+            <div className='text-white'>evercall</div>
           </div>
+
           <div className="flex flex-col space-y-6 text-xs font-mono">
             <a href="#home" className={`nav-item transition-all duration-200 ${activeSection === 'home' ? 'text-cyber-blue nav-active' : 'text-gray-400 hover:text-cyber-blue'}`}>
               <div>INDEX</div>
@@ -119,10 +135,22 @@ export default function Home() {
           <BackgroundPaths />
 
           <div className="text-center z-10 relative">
-            <div className="font-orbitron text-6xl md:text-8xl font-bold mb-4">
+            {/* 静态资源图片logo */}
+            <div className="mb-6">
+              <img 
+                src="/logo.png" 
+                alt="Evercall Logo" 
+                className="w-128 mx-auto mb-4 object-contain"
+                onError={(e) => {
+                  // 如果图片加载失败，隐藏img标签
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+            </div>
+            {/* <div className="font-orbitron text-6xl md:text-8xl font-bold mb-4">
               <span className="text-white">EVER</span>
               <span className="text-cyber-blue neon-blue">CALL</span>
-            </div>
+            </div> */}
             <div className="font-mono text-cyber-orange text-lg mb-8">
               AI COMPANION SYSTEM
             </div>

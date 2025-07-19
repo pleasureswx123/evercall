@@ -7,61 +7,15 @@ interface FloatingPathsProps {
 }
 
 function FloatingPaths({ position }: FloatingPathsProps) {
-  const paths = Array.from({ length: 24 }, (_, i) => {
-    // 创建大幅波浪路径，从右中间到左中间
-    const yCenter = 400 + (i - 12) * 25 // 垂直分布更广
-    const startX = 1400 // 从右边开始
-    const endX = -400 // 到左边结束
-
-    // 大幅波浪参数
-    const amplitude = 120 + Math.abs(i - 12) * 15 // 大幅度波浪，中间小，两边大
-    const waveCount = 3 + Math.floor(i / 6) // 3-6个完整波浪
-    const phaseOffset = i * 0.4 * position // 相位偏移
-
-    // 生成多个波浪起伏的路径点
-    const points = []
-    const totalDistance = startX - endX
-    const stepSize = 25 // 更密集的点来创建平滑波浪
-
-    for (let x = startX; x >= endX; x -= stepSize) {
-      const progress = (startX - x) / totalDistance
-      // 使用多个正弦波叠加创造复杂的波浪形状
-      const wave1 = Math.sin(progress * Math.PI * 2 * waveCount + phaseOffset)
-      const wave2 = Math.sin(progress * Math.PI * 2 * waveCount * 1.5 + phaseOffset * 0.7) * 0.3
-      const wave3 = Math.sin(progress * Math.PI * 2 * waveCount * 0.5 + phaseOffset * 1.3) * 0.5
-
-      const combinedWave = wave1 + wave2 + wave3
-      const y = yCenter + amplitude * combinedWave * Math.sin(progress * Math.PI) // 渐变幅度
-
-      points.push({ x, y })
-    }
-
-    // 使用平滑的贝塞尔曲线连接所有点
-    let pathD = `M${points[0].x},${points[0].y}`
-
-    for (let j = 1; j < points.length; j++) {
-      const current = points[j]
-      const prev = points[j - 1]
-
-      // 计算平滑的控制点
-      const tension = 0.3
-      const controlX1 = prev.x - (prev.x - current.x) * tension
-      const controlY1 = prev.y
-      const controlX2 = current.x + (prev.x - current.x) * tension
-      const controlY2 = current.y
-
-      pathD += ` C${controlX1},${controlY1} ${controlX2},${controlY2} ${current.x},${current.y}`
-    }
-
-    return {
-      id: i,
-      d: pathD,
-      opacity: 0.15 + (Math.abs(i - 12) / 12) * 0.3, // 中间透明度低，两边高
-      width: 0.8 + (Math.abs(i - 12) / 12) * 1.2, // 中间线条细，两边粗
-      delay: i * 0.3,
-      duration: 20 + Math.random() * 15
-    }
-  });
+  const paths = Array.from({ length: 36 }, (_, i) => ({
+    id: i,
+    d: `M-${380 - i * 5 * position} -${189 + i * 6}C-${380 - i * 5 * position
+      } -${189 + i * 6} -${312 - i * 5 * position} ${216 - i * 6} ${152 - i * 5 * position
+      } ${343 - i * 6}C${616 - i * 5 * position} ${470 - i * 6} ${684 - i * 5 * position
+      } ${875 - i * 6} ${684 - i * 5 * position} ${875 - i * 6}`,
+    color: `rgba(0,255,255,${0.1 + i * 0.03})`,
+    width: 0.5 + i * 0.03,
+  }));
 
   return (
     <div className="absolute inset-0 pointer-events-none z-10">
@@ -71,42 +25,24 @@ function FloatingPaths({ position }: FloatingPathsProps) {
         fill="none"
         preserveAspectRatio="xMidYMid slice"
       >
-        <defs>
-          <linearGradient id={`waveGradient-${position}`} x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="rgba(0, 255, 255, 0)" />
-            <stop offset="10%" stopColor="rgba(0, 255, 255, 0.3)" />
-            <stop offset="50%" stopColor="rgba(0, 255, 255, 0.8)" />
-            <stop offset="90%" stopColor="rgba(0, 255, 255, 0.3)" />
-            <stop offset="100%" stopColor="rgba(0, 255, 255, 0)" />
-          </linearGradient>
-          <filter id={`glow-${position}`}>
-            <feGaussianBlur stdDeviation="2" result="coloredBlur" />
-            <feMerge>
-              <feMergeNode in="coloredBlur" />
-              <feMergeNode in="SourceGraphic" />
-            </feMerge>
-          </filter>
-        </defs>
         <title>Background Paths</title>
-        {paths.map((path, index) => (
+        {paths.map((path) => (
           <motion.path
             key={path.id}
             d={path.d}
-            stroke={`url(#waveGradient-${position})`}
+            stroke="currentColor"
             strokeWidth={path.width}
-            fill="none"
-            strokeLinecap="round"
-            filter={`url(#glow-${position})`}
-            initial={{ pathLength: 0, opacity: 0 }}
+            strokeOpacity={0.1 + path.id * 0.03}
+            initial={{ pathLength: 0.3, opacity: 0.6 }}
             animate={{
-              pathLength: [0, 1, 0.3, 0],
-              opacity: [0, path.opacity, path.opacity * 0.7, 0],
+              pathLength: 1,
+              opacity: [0.3, 0.6, 0.3],
+              pathOffset: [0, 1, 0],
             }}
             transition={{
-              duration: path.duration,
+              duration: 20 + Math.random() * 10,
               repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-              delay: path.delay,
+              ease: "linear",
             }}
           />
         ))}
