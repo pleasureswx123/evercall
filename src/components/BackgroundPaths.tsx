@@ -7,44 +7,106 @@ interface FloatingPathsProps {
 }
 
 function FloatingPaths({ position }: FloatingPathsProps) {
-  const paths = Array.from({ length: 36 }, (_, i) => ({
-    id: i,
-    d: `M-${380 - i * 5 * position} -${189 + i * 6}C-${
-      380 - i * 5 * position
-    } -${189 + i * 6} -${312 - i * 5 * position} ${216 - i * 6} ${
-      152 - i * 5 * position
-    } ${343 - i * 6}C${616 - i * 5 * position} ${470 - i * 6} ${
-      684 - i * 5 * position
-    } ${875 - i * 6} ${684 - i * 5 * position} ${875 - i * 6}`,
-    color: `rgba(15,23,42,${0.1 + i * 0.03})`,
-    width: 0.5 + i * 0.03,
-  }));
+  const paths = Array.from({ length: 24 }, (_, i) => {
+    // 创建大幅波浪路径，从右中间到左中间
+    const yCenter = 400 + (i - 12) * 25 // 垂直分布更广
+    const startX = 1400 // 从右边开始
+    const endX = -400 // 到左边结束
+
+    // 大幅波浪参数
+    const amplitude = 120 + Math.abs(i - 12) * 15 // 大幅度波浪，中间小，两边大
+    const waveCount = 3 + Math.floor(i / 6) // 3-6个完整波浪
+    const phaseOffset = i * 0.4 * position // 相位偏移
+
+    // 生成多个波浪起伏的路径点
+    const points = []
+    const totalDistance = startX - endX
+    const stepSize = 25 // 更密集的点来创建平滑波浪
+
+    for (let x = startX; x >= endX; x -= stepSize) {
+      const progress = (startX - x) / totalDistance
+      // 使用多个正弦波叠加创造复杂的波浪形状
+      const wave1 = Math.sin(progress * Math.PI * 2 * waveCount + phaseOffset)
+      const wave2 = Math.sin(progress * Math.PI * 2 * waveCount * 1.5 + phaseOffset * 0.7) * 0.3
+      const wave3 = Math.sin(progress * Math.PI * 2 * waveCount * 0.5 + phaseOffset * 1.3) * 0.5
+
+      const combinedWave = wave1 + wave2 + wave3
+      const y = yCenter + amplitude * combinedWave * Math.sin(progress * Math.PI) // 渐变幅度
+
+      points.push({ x, y })
+    }
+
+    // 使用平滑的贝塞尔曲线连接所有点
+    let pathD = `M${points[0].x},${points[0].y}`
+
+    for (let j = 1; j < points.length; j++) {
+      const current = points[j]
+      const prev = points[j - 1]
+
+      // 计算平滑的控制点
+      const tension = 0.3
+      const controlX1 = prev.x - (prev.x - current.x) * tension
+      const controlY1 = prev.y
+      const controlX2 = current.x + (prev.x - current.x) * tension
+      const controlY2 = current.y
+
+      pathD += ` C${controlX1},${controlY1} ${controlX2},${controlY2} ${current.x},${current.y}`
+    }
+
+    return {
+      id: i,
+      d: pathD,
+      opacity: 0.15 + (Math.abs(i - 12) / 12) * 0.3, // 中间透明度低，两边高
+      width: 0.8 + (Math.abs(i - 12) / 12) * 1.2, // 中间线条细，两边粗
+      delay: i * 0.3,
+      duration: 20 + Math.random() * 15
+    }
+  });
 
   return (
-    <div className="absolute inset-0 pointer-events-none">
+    <div className="absolute inset-0 pointer-events-none z-10">
       <svg
-        className="w-full h-full text-slate-950 dark:text-white"
-        viewBox="0 0 696 316"
+        className="w-full h-full text-cyber-blue"
+        viewBox="0 0 1200 800"
         fill="none"
+        preserveAspectRatio="xMidYMid slice"
       >
+        <defs>
+          <linearGradient id={`waveGradient-${position}`} x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="rgba(0, 255, 255, 0)" />
+            <stop offset="10%" stopColor="rgba(0, 255, 255, 0.3)" />
+            <stop offset="50%" stopColor="rgba(0, 255, 255, 0.8)" />
+            <stop offset="90%" stopColor="rgba(0, 255, 255, 0.3)" />
+            <stop offset="100%" stopColor="rgba(0, 255, 255, 0)" />
+          </linearGradient>
+          <filter id={`glow-${position}`}>
+            <feGaussianBlur stdDeviation="2" result="coloredBlur" />
+            <feMerge>
+              <feMergeNode in="coloredBlur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
         <title>Background Paths</title>
-        {paths.map((path) => (
+        {paths.map((path, index) => (
           <motion.path
             key={path.id}
             d={path.d}
-            stroke="currentColor"
+            stroke={`url(#waveGradient-${position})`}
             strokeWidth={path.width}
-            strokeOpacity={0.1 + path.id * 0.03}
-            initial={{ pathLength: 0.3, opacity: 0.6 }}
+            fill="none"
+            strokeLinecap="round"
+            filter={`url(#glow-${position})`}
+            initial={{ pathLength: 0, opacity: 0 }}
             animate={{
-              pathLength: 1,
-              opacity: [0.3, 0.6, 0.3],
-              pathOffset: [0, 1, 0],
+              pathLength: [0, 1, 0.3, 0],
+              opacity: [0, path.opacity, path.opacity * 0.7, 0],
             }}
             transition={{
-              duration: 20 + Math.random() * 10,
+              duration: path.duration,
               repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
+              ease: "easeInOut",
+              delay: path.delay,
             }}
           />
         ))}
@@ -79,8 +141,13 @@ function FlowingWaves() {
   })
 
   return (
-    <div className="absolute inset-0 pointer-events-none">
-      <svg className="w-full h-full" viewBox="0 0 1200 800" fill="none">
+    <div className="absolute inset-0 pointer-events-none z-20">
+      <svg
+        className="w-full h-full"
+        viewBox="0 0 1200 800"
+        fill="none"
+        preserveAspectRatio="xMidYMid slice"
+      >
         <defs>
           <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="rgba(0, 255, 255, 0)" />
@@ -90,10 +157,10 @@ function FlowingWaves() {
             <stop offset="100%" stopColor="rgba(0, 255, 255, 0)" />
           </linearGradient>
           <filter id="waveGlow">
-            <feGaussianBlur stdDeviation="1.5" result="coloredBlur"/>
+            <feGaussianBlur stdDeviation="1.5" result="coloredBlur" />
             <feMerge>
-              <feMergeNode in="coloredBlur"/>
-              <feMergeNode in="SourceGraphic"/>
+              <feMergeNode in="coloredBlur" />
+              <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
         </defs>
@@ -112,7 +179,7 @@ function FlowingWaves() {
             }}
             animate={{
               pathLength: [0, 1, 0.7, 0],
-              opacity: [0, wave.opacity * 3, wave.opacity, 0],
+              opacity: [0, wave.opacity * 5, wave.opacity * 3, 0], // 增加不透明度
               strokeDashoffset: [0, -50, -100, -150],
             }}
             transition={{
@@ -139,7 +206,9 @@ function NeuralPaths() {
     id: `node-${i}`
   }))
 
-  const connections = []
+  // 明确定义 connections 类型
+  const connections: { id: string; d: string; delay: number }[] = []
+
   nodes.forEach((node, i) => {
     const nearbyNodes = nodes.filter((other, j) => {
       if (i === j) return false
@@ -157,7 +226,11 @@ function NeuralPaths() {
   })
 
   return (
-    <svg className="absolute inset-0 w-full h-full opacity-20 text-cyber-blue" viewBox="0 0 800 600">
+    <svg
+      className="absolute inset-0 w-full h-full opacity-30 text-cyber-blue z-10"
+      viewBox="0 0 800 600"
+      preserveAspectRatio="xMidYMid slice"
+    >
       {connections.map((conn) => (
         <motion.path
           key={conn.id}
@@ -228,13 +301,18 @@ function RefinedCurves() {
   })
 
   return (
-    <div className="absolute inset-0 pointer-events-none">
-      <svg className="w-full h-full" viewBox="0 0 1200 800" fill="none">
+    <div className="absolute inset-0 pointer-events-none z-15">
+      <svg
+        className="w-full h-full"
+        viewBox="0 0 1200 800"
+        fill="none"
+        preserveAspectRatio="xMidYMid slice"
+      >
         <defs>
           <linearGradient id="curveGradient" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="rgba(0, 255, 255, 0)" />
-            <stop offset="25%" stopColor="rgba(0, 255, 255, 0.2)" />
-            <stop offset="75%" stopColor="rgba(0, 255, 255, 0.2)" />
+            <stop offset="25%" stopColor="rgba(0, 255, 255, 0.3)" />
+            <stop offset="75%" stopColor="rgba(0, 255, 255, 0.3)" />
             <stop offset="100%" stopColor="rgba(0, 255, 255, 0)" />
           </linearGradient>
         </defs>
@@ -252,7 +330,7 @@ function RefinedCurves() {
             }}
             animate={{
               pathLength: [0, 0.8, 1, 0.2, 0],
-              opacity: [0, curve.opacity, curve.opacity * 1.5, curve.opacity, 0],
+              opacity: [0, curve.opacity * 3, curve.opacity * 5, curve.opacity * 3, 0], // 增加不透明度
             }}
             transition={{
               duration: curve.duration,
@@ -285,11 +363,15 @@ function DataStreamPaths() {
   })
 
   return (
-    <svg className="absolute inset-0 w-full h-full opacity-20" viewBox="0 0 1200 800">
+    <svg
+      className="absolute inset-0 w-full h-full opacity-40 z-20"
+      viewBox="0 0 1200 800"
+      preserveAspectRatio="xMidYMid slice"
+    >
       <defs>
         <linearGradient id="streamGradient" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stopColor="rgba(0, 255, 255, 0)" />
-          <stop offset="50%" stopColor="rgba(0, 255, 255, 0.4)" />
+          <stop offset="50%" stopColor="rgba(0, 255, 255, 0.6)" />
           <stop offset="100%" stopColor="rgba(0, 255, 255, 0)" />
         </linearGradient>
       </defs>
@@ -299,14 +381,14 @@ function DataStreamPaths() {
           d={stream.d}
           fill="none"
           stroke="url(#streamGradient)"
-          strokeWidth="0.8"
+          strokeWidth="1.2"
           strokeLinecap="round"
           strokeDasharray="8,12"
           initial={{ pathLength: 0, opacity: 0 }}
           animate={{
             pathLength: [0, 1, 0],
             strokeDashoffset: [0, -20, -40],
-            opacity: [0, stream.opacity, 0],
+            opacity: [0, stream.opacity * 3, 0], // 增加不透明度
           }}
           transition={{
             duration: 12,
@@ -456,16 +538,6 @@ function ScanLines() {
 export function BackgroundPaths() {
   return (
     <div className="absolute inset-0 overflow-hidden">
-      {/* 基础网格背景 - 降低透明度 */}
-      <div className="opacity-30">
-        <GridPaths />
-      </div>
-
-      {/* 主要流动波浪 - 核心效果 */}
-      <FlowingWaves />
-
-      {/* 精细曲线路径 */}
-      <RefinedCurves />
 
       {/* 主要浮动路径 - 双向流动 */}
       <div className="opacity-80">
@@ -473,16 +545,28 @@ export function BackgroundPaths() {
         <FloatingPaths position={-1} />
       </div>
 
+      {/* 基础网格背景 - 降低透明度 */}
+      <div className="opacity-80">
+        <GridPaths />
+      </div>
+
+      {/* 主要流动波浪 - 核心效果 */}
+      {/* <FlowingWaves /> */}
+
+      {/* 精细曲线路径 */}
+      {/* <RefinedCurves /> */}
+
+
       {/* 数据流路径 */}
-      <DataStreamPaths />
+      {/* <DataStreamPaths /> */}
 
       {/* 神经网络路径 - 降低透明度 */}
       <div className="opacity-40">
-        <NeuralPaths />
+        {/* <NeuralPaths /> */}
       </div>
 
       {/* 扫描线效果 */}
-      <ScanLines />
+      {/* <ScanLines /> */}
 
       {/* 多层渐变遮罩 */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/50 pointer-events-none" />
