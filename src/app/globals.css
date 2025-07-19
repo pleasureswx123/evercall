@@ -50,6 +50,7 @@ a {
 /* 平滑滚动 */
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 0px; /* 确保滚动到正确位置 */
 }
 
 /* 科技风格动画 */
@@ -205,4 +206,27 @@ html {
 @keyframes hologram-move {
   0% { background-position: 0 0; }
   100% { background-position: 20px 20px; }
+}
+
+/* 导航激活状态 */
+.nav-active {
+  position: relative;
+}
+
+.nav-active::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  height: 20px;
+  background: #00ffff;
+  box-shadow: 0 0 5px #00ffff;
+}
+
+/* 导航悬停效果 */
+.nav-item:hover {
+  transform: translateX(2px);
+  transition: transform 0.2s ease;
 }
