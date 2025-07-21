@@ -29,6 +29,18 @@ export default function Home() {
     return () => clearInterval(timer)
   }, [])
 
+  // 平滑滚动到指定区域
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId)
+    if (section) {
+      window.scrollTo({
+        top: section.offsetTop,
+        behavior: 'smooth'
+      })
+      setActiveSection(sectionId)
+    }
+  }
+
   // 监听滚动位置，更新活动导航项
   useEffect(() => {
     if (loading) return
@@ -130,30 +142,48 @@ export default function Home() {
           </div>
 
           <div className="flex flex-col space-y-6 text-xs font-mono">
-            <a href="#home" className={`nav-item transition-all duration-200 ${activeSection === 'home' ? 'text-cyber-blue nav-active' : 'text-gray-400 hover:text-cyber-blue'}`}>
+            <button
+              onClick={() => scrollToSection('home')}
+              className={`nav-item transition-all duration-500 transform hover:scale-105 ${activeSection === 'home' ? 'text-cyber-blue nav-active scale-110' : 'text-gray-400 hover:text-cyber-blue'}`}
+            >
               <div>INDEX</div>
               <div className="text-white">首页</div>
-            </a>
-            <a href="#characters" className={`nav-item transition-all duration-200 ${activeSection === 'characters' ? 'text-cyber-blue nav-active' : 'text-gray-400 hover:text-cyber-blue'}`}>
+            </button>
+            <button
+              onClick={() => scrollToSection('characters')}
+              className={`nav-item transition-all duration-500 transform hover:scale-105 ${activeSection === 'characters' ? 'text-cyber-blue nav-active scale-110' : 'text-gray-400 hover:text-cyber-blue'}`}
+            >
               <div>CHARACTER</div>
               <div className="text-white">角色</div>
-            </a>
-            <a href="#news" className={`nav-item transition-all duration-200 ${activeSection === 'news' ? 'text-cyber-blue nav-active' : 'text-gray-400 hover:text-cyber-blue'}`}>
+            </button>
+            <button
+              onClick={() => scrollToSection('news')}
+              className={`nav-item transition-all duration-500 transform hover:scale-105 ${activeSection === 'news' ? 'text-cyber-blue nav-active scale-110' : 'text-gray-400 hover:text-cyber-blue'}`}
+            >
               <div>NEWS</div>
               <div className="text-white">新闻</div>
-            </a>
-            <a href="#tech" className={`nav-item transition-all duration-200 ${activeSection === 'tech' ? 'text-cyber-blue nav-active' : 'text-gray-400 hover:text-cyber-blue'}`}>
+            </button>
+            <button
+              onClick={() => scrollToSection('tech')}
+              className={`nav-item transition-all duration-500 transform hover:scale-105 ${activeSection === 'tech' ? 'text-cyber-blue nav-active scale-110' : 'text-gray-400 hover:text-cyber-blue'}`}
+            >
               <div>TECH</div>
               <div className="text-white">技术</div>
-            </a>
-            <a href="#experience" className={`nav-item transition-all duration-200 ${activeSection === 'experience' ? 'text-cyber-blue nav-active' : 'text-gray-400 hover:text-cyber-blue'}`}>
+            </button>
+            <button
+              onClick={() => scrollToSection('experience')}
+              className={`nav-item transition-all duration-500 transform hover:scale-105 ${activeSection === 'experience' ? 'text-cyber-blue nav-active scale-110' : 'text-gray-400 hover:text-cyber-blue'}`}
+            >
               <div>EXPERIENCE</div>
               <div className="text-white">体验</div>
-            </a>
-            <a href="#about" className={`nav-item transition-all duration-200 ${activeSection === 'about' ? 'text-cyber-blue nav-active' : 'text-gray-400 hover:text-cyber-blue'}`}>
+            </button>
+            <button
+              onClick={() => scrollToSection('about')}
+              className={`nav-item transition-all duration-500 transform hover:scale-105 ${activeSection === 'about' ? 'text-cyber-blue nav-active scale-110' : 'text-gray-400 hover:text-cyber-blue'}`}
+            >
               <div>ABOUT</div>
               <div className="text-white">关于</div>
-            </a>
+            </button>
           </div>
         </div>
       </nav>
