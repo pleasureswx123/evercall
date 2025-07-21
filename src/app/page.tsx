@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import { CharacterShowcase } from '@/components/CharacterShowcase'
 import { NewsSection } from '@/components/NewsSection'
 import { TechnologySection } from '@/components/TechnologySection'
@@ -115,7 +116,12 @@ export default function Home() {
       <SideNav activeSection={activeSection} scrollToSection={scrollToSection} />
 
       {/* 主内容区域 */}
-      <div className="ml-20 min-h-screen">
+      <motion.div 
+        className="ml-20 min-h-screen"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+      >
         {/* 首页区域 */}
         <HomeSection />
 
@@ -157,7 +163,7 @@ export default function Home() {
         <SectionDivider variant="gradient" color="purple" />
 
         <FooterSection />
-      </div>
+      </motion.div>
     </main>
   )
 }

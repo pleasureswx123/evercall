@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { ScrollAnimationWrapper } from './ScrollAnimationWrapper'
+import { motion } from 'framer-motion'
 
 interface TechModule {
   id: string
@@ -179,7 +181,7 @@ export function TechnologySection() {
       <div className="relative z-10 p-8">
         <div className="max-w-7xl mx-auto">
           {/* 头部区域 */}
-          <div className="text-center mb-16">
+          <ScrollAnimationWrapper direction="down" className="text-center mb-16">
             <div className="flex items-center justify-center mb-6">
               <div className="w-3 h-3 bg-cyber-blue rounded-full animate-pulse mr-4"></div>
               <div className="text-cyber-blue font-mono text-sm">TECHNOLOGY ARCHITECTURE</div>
@@ -189,11 +191,16 @@ export function TechnologySection() {
             <div className="text-gray-400 max-w-3xl mx-auto leading-relaxed">
               探索Evercall背后的先进技术，了解我们如何通过创新的AI技术栈打造真实的情感陪伴体验
             </div>
-          </div>
+          </ScrollAnimationWrapper>
 
           {/* 分类导航 */}
-          <div className="flex justify-center mb-12">
-            <div className="flex space-x-2 bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-lg p-2">
+          <ScrollAnimationWrapper direction="up" delay={0.3} className="flex justify-center mb-12">
+            <motion.div 
+              className="flex space-x-2 bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-lg p-2"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+            >
               {[
                 { key: 'all', label: '全部技术', count: techModules.length },
                 { key: 'core', label: '核心技术', count: 3 },
@@ -213,8 +220,8 @@ export function TechnologySection() {
                   </span>
                 </button>
               ))}
-            </div>
-          </div>
+            </motion.div>
+          </ScrollAnimationWrapper>
 
           {/* 技术模块网格 */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">

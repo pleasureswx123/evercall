@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { ScrollAnimationWrapper } from './ScrollAnimationWrapper'
 
 interface NewsItem {
   id: string
@@ -151,7 +152,7 @@ export function NewsSection() {
       <div className="relative z-10 p-8">
         <div className="max-w-7xl mx-auto">
           {/* 头部区域 */}
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-12">
+          <ScrollAnimationWrapper direction="down" className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-12">
             <div className="mb-6 lg:mb-0">
               <div className="flex items-center mb-4">
                 <div className="w-2 h-2 bg-cyber-blue rounded-full animate-pulse mr-3"></div>
@@ -170,7 +171,7 @@ export function NewsSection() {
             </div>
 
             {/* 统计信息 */}
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <ScrollAnimationWrapper direction="left" delay={0.3} className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="text-center p-3 border border-gray-700 bg-gray-900/50 backdrop-blur-sm">
                 <div className="text-cyber-blue font-orbitron text-lg">{newsData.filter(n => n.isNew).length}</div>
                 <div className="text-gray-400 font-mono text-xs">NEW</div>
@@ -187,11 +188,11 @@ export function NewsSection() {
                 <div className="text-cyber-purple font-orbitron text-lg">24/7</div>
                 <div className="text-gray-400 font-mono text-xs">LIVE</div>
               </div>
-            </div>
-          </div>
+            </ScrollAnimationWrapper>
+          </ScrollAnimationWrapper>
 
           {/* 标签页导航 */}
-          <div className="mb-8">
+          <ScrollAnimationWrapper direction="up" delay={0.4} className="mb-8">
             <div className="flex flex-wrap gap-2 mb-6">
               {[
                 { key: 'all', label: '全部', count: newsData.length },
@@ -217,7 +218,7 @@ export function NewsSection() {
                 </button>
               ))}
             </div>
-          </div>
+          </ScrollAnimationWrapper>
 
           {/* 新闻列表 */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">

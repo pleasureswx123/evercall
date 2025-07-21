@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { ScrollAnimationWrapper } from './ScrollAnimationWrapper'
+import { motion } from 'framer-motion'
 
 export function AboutSection() {
 
@@ -10,13 +12,13 @@ export function AboutSection() {
     <section id="about" className="min-h-screen bg-dark-100 border-t border-cyber-blue border-opacity-30 p-8">
       <div className="max-w-6xl mx-auto">
         {/* 标题区域 */}
-        <div className="text-center mb-12">
+        <ScrollAnimationWrapper direction="down" className="text-center mb-12">
           <div className="text-cyber-blue font-mono text-sm mb-2">ABOUT US ://</div>
           <div className="text-white font-orbitron text-3xl mb-8">关于我们</div>
-        </div>
+        </ScrollAnimationWrapper>
 
         {/* Tab 选项卡 */}
-        <div className="mb-12">
+        <ScrollAnimationWrapper direction="up" delay={0.3} className="mb-12">
           <div className="grid grid-cols-2 relative z-10">
             <button
               type="button"
@@ -51,21 +53,21 @@ export function AboutSection() {
               <div>TEAM <span className="text-xs">团队介绍</span></div>
             </button>
           </div>
-        </div>
+        </ScrollAnimationWrapper>
 
         {/* Tab 内容区域 */}
         <div className="min-h-[600px]">
           {aboutTab === 'about' && (
             <div key="about" className="animate-fade-in">
               {/* 公司介绍内容 */}
-              <div className="text-center mb-12">
+              <ScrollAnimationWrapper direction="up" delay={0.4} className="text-center mb-12">
                 <div className="text-gray-400 max-w-4xl mx-auto leading-relaxed">
                   我们是一群充满激情的技术专家和创新者，致力于通过先进的AI技术为人类带来更好的情感陪伴体验
                 </div>
-              </div>
+              </ScrollAnimationWrapper>
 
               {/* 使命区域 */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+              <ScrollAnimationWrapper direction="up" delay={0.5} className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
                 <div className="border border-gray-600 p-6 hover:border-cyber-blue transition-colors">
                   <div className="text-cyber-orange font-mono text-sm mb-4">MISSION</div>
                   <div className="text-white font-orbitron text-xl mb-4">我们的使命</div>
@@ -95,10 +97,10 @@ export function AboutSection() {
                     <div className="text-white font-mono text-sm">服务可用性</div>
                   </div>
                 </div>
-              </div>
+              </ScrollAnimationWrapper>
 
               {/* 核心价值观 */}
-              <div className="mb-16">
+              <ScrollAnimationWrapper direction="up" delay={0.6} className="mb-16">
                 <div className="text-cyber-blue font-mono text-sm mb-6">CORE VALUES</div>
                 <div className="text-white font-orbitron text-2xl mb-8">核心价值观</div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -131,13 +133,13 @@ export function AboutSection() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </ScrollAnimationWrapper>
             </div>
           )}
 
           {aboutTab === 'team' && (
             <div key="team" className="animate-fade-in">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+              <ScrollAnimationWrapper direction="up" delay={0.4} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
                 <div className="border border-gray-600 p-6 hover:border-cyber-blue transition-colors text-center">
                   <div className="w-20 h-20 bg-cyber-blue bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
                     <span className="text-cyber-blue text-2xl">张</span>
@@ -181,10 +183,10 @@ export function AboutSection() {
                     前Apple设计师，在UI/UX设计和3D建模方面有着深厚的造诣。
                   </div>
                 </div>
-              </div>
+              </ScrollAnimationWrapper>
 
               {/* 发展历程 */}
-              <div className="mb-16">
+              <ScrollAnimationWrapper direction="up" delay={0.5} className="mb-16">
                 <div className="text-cyber-blue font-mono text-sm mb-6">TIMELINE ://</div>
                 <div className="text-white font-orbitron text-2xl mb-8">发展历程</div>
                 <div className="space-y-6">
@@ -217,7 +219,7 @@ export function AboutSection() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </ScrollAnimationWrapper>
             </div>
           )}
         </div>

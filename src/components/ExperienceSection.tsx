@@ -1,6 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { ScrollAnimationWrapper } from './ScrollAnimationWrapper'
+import { motion } from 'framer-motion'
 
 interface ExperienceOption {
   id: string
@@ -186,17 +188,34 @@ export function ExperienceSection() {
       <div className="relative z-10 p-8">
         <div className="max-w-7xl mx-auto">
           {/* 头部区域 */}
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center mb-6">
+          <ScrollAnimationWrapper direction="down" className="text-center mb-16">
+            <motion.div 
+              className="flex items-center justify-center mb-6"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
+            >
               <div className="w-3 h-3 bg-cyber-blue rounded-full animate-pulse mr-4"></div>
               <div className="text-cyber-blue font-mono text-sm">EXPERIENCE EVERCALL</div>
               <div className="w-3 h-3 bg-cyber-blue rounded-full animate-pulse ml-4"></div>
-            </div>
-            <div className="text-white font-orbitron text-4xl mb-6">体验方式</div>
-            <div className="text-gray-400 max-w-3xl mx-auto leading-relaxed">
+            </motion.div>
+            <motion.div 
+              className="text-white font-orbitron text-4xl mb-6"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              体验方式
+            </motion.div>
+            <motion.div 
+              className="text-gray-400 max-w-3xl mx-auto leading-relaxed"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
               选择最适合您的方式开始AI陪伴之旅，从免费试用到完整体验，我们为每种需求提供完美的解决方案
-            </div>
-          </div>
+            </motion.div>
+          </ScrollAnimationWrapper>
 
           {/* 体验选项网格 */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">

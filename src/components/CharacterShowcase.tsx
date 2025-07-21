@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { ScrollAnimationWrapper } from './ScrollAnimationWrapper'
 
 interface Character {
   id: string
@@ -123,18 +124,18 @@ export function CharacterShowcase() {
       <div className="relative z-10 min-h-screen flex items-center">
         <div className="max-w-7xl mx-auto px-8 w-full">
           {/* 标题区域 */}
-          <div className="text-center mb-16">
+          <ScrollAnimationWrapper direction="down" className="text-center mb-16">
             <div className="text-cyber-blue font-mono text-sm mb-2">AI COMPANIONS ://</div>
             <div className="text-white font-orbitron text-4xl mb-4">角色展示</div>
             <div className="text-gray-400 max-w-2xl mx-auto">
               每个角色都拥有独特的性格、专长和记忆，为你带来不同的陪伴体验
             </div>
-          </div>
+          </ScrollAnimationWrapper>
 
           {/* 角色展示区域 */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* 左侧 - 角色信息 */}
-            <div className={`transition-all duration-500 ${isAnimating ? 'opacity-0 transform translate-x-[-20px]' : 'opacity-100 transform translate-x-0'}`}>
+            <ScrollAnimationWrapper direction="left" className={`transition-all duration-500 ${isAnimating ? 'opacity-0 transform translate-x-[-20px]' : 'opacity-100 transform translate-x-0'}`}>
               {/* 角色名称 */}
               <div className="mb-8">
                 <div className="flex items-center mb-4">
@@ -179,10 +180,10 @@ export function CharacterShowcase() {
                   了解更多
                 </button>
               </div>
-            </div>
+            </ScrollAnimationWrapper>
 
             {/* 右侧 - 角色展示区域 */}
-            <div className="flex flex-col items-center">
+            <ScrollAnimationWrapper direction="right" delay={0.3} className="flex flex-col items-center">
               {/* 角色头像区域 */}
               <div className="relative mb-8">
                 <div className="w-80 h-80 relative">
@@ -239,7 +240,7 @@ export function CharacterShowcase() {
                   />
                 ))}
               </div>
-            </div>
+            </ScrollAnimationWrapper>
           </div>
         </div>
       </div>

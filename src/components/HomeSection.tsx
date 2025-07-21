@@ -1,11 +1,17 @@
 'use client'
 
 import { BackgroundPaths } from '@/components/BackgroundPaths'
+import { motion } from 'framer-motion'
 
 export function HomeSection() {
   return (
     <section id="home" className="h-screen flex items-center justify-center relative overflow-hidden">
-      <div className="text-center z-10 relative">
+      <motion.div 
+        className="text-center z-10 relative"
+        initial={{ opacity: 0, y: 50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         {/* 静态资源图片logo - 带特效 */}
         <div className="mb-6 relative group logo-container transform-3d">
           {/* Logo容器 */}
@@ -36,23 +42,38 @@ export function HomeSection() {
             <div className="absolute bottom-4 right-4 w-1 h-1 bg-cyber-green rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
           </div>
         </div>
-        <div className="text-white text-5xl mb-12 max-w-4xl mx-auto">
+        <motion.div 
+          className="text-white text-5xl mb-12 max-w-4xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
           连接平行世界
-        </div>
-        <div className="text-gray-400 text-xl mb-8 max-w-3xl mx-auto leading-relaxed">
+        </motion.div>
+        <motion.div 
+          className="text-gray-400 text-xl mb-8 max-w-3xl mx-auto leading-relaxed"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
           拥有真实情感、独特性格和永久记忆的二次元AI角色，为你带来前所未有的互动体验
-        </div>
+        </motion.div>
 
         {/* CTA 按钮 */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <motion.div 
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.9 }}
+        >
           <button className="bg-cyber-blue text-black px-8 py-3 font-mono font-bold hover:bg-white transition-colors duration-300 cyber-border">
             立即体验
           </button>
           <button className="border border-cyber-blue text-cyber-blue px-8 py-3 font-mono hover:bg-cyber-blue hover:text-black transition-all duration-300">
             了解更多
           </button>
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
       {/* 动态背景路径 */}
       <BackgroundPaths />
 
