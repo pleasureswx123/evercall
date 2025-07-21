@@ -5,6 +5,7 @@ import { BackgroundPaths } from '@/components/BackgroundPaths'
 import { CharacterShowcase } from '@/components/CharacterShowcase'
 import { NewsSection } from '@/components/NewsSection'
 import { TechnologySection } from '@/components/TechnologySection'
+import { ExperienceSection } from '@/components/ExperienceSection'
 
 export default function Home() {
   const [loading, setLoading] = useState(true)
@@ -270,45 +271,7 @@ export default function Home() {
         <TechnologySection />
 
         {/* 体验区块 */}
-        <section id="experience" className="min-h-screen bg-black border-t border-cyber-blue border-opacity-30 p-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12">
-              <div className="text-cyber-blue font-mono text-sm mb-2">ABOUT EVERCALL</div>
-              <div className="text-white font-orbitron text-3xl mb-4">AI陪伴万象</div>
-              <div className="text-gray-400">请选择您要查阅的内容</div>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-              <div className="border border-gray-600 p-6 hover:border-cyber-blue transition-colors cursor-pointer">
-                <div className="text-cyber-blue font-mono text-sm mb-2">检视詳情</div>
-                <div className="text-white font-orbitron text-xl mb-4">免费试用</div>
-                <div className="text-cyber-blue font-mono text-lg mb-2">FREE TRIAL</div>
-                <div className="text-gray-400 text-sm mb-4">立即体验Evercall的魅力，无需注册即可开始对话</div>
-                <div className="text-cyber-blue font-mono text-xs">VIEW MORE</div>
-              </div>
-
-              <div className="border border-gray-600 p-6 hover:border-cyber-blue transition-colors cursor-pointer">
-                <div className="text-cyber-orange font-mono text-sm mb-2">检视詳情</div>
-                <div className="text-white font-orbitron text-xl mb-4">下载应用</div>
-                <div className="text-cyber-orange font-mono text-lg mb-2">DOWNLOAD APP</div>
-                <div className="text-gray-400 text-sm mb-4">支持iOS和Android平台，随时随地与你的AI伙伴互动</div>
-                <div className="text-cyber-orange font-mono text-xs">VIEW MORE</div>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <div className="text-cyber-blue font-mono text-sm mb-4">MORE CONTENT</div>
-              <div className="flex justify-center space-x-8">
-                <button className="text-cyber-blue font-mono text-sm border border-cyber-blue px-6 py-2 hover:bg-cyber-blue hover:text-black transition-all">
-                  立即体验
-                </button>
-                <button className="text-cyber-orange font-mono text-sm border border-cyber-orange px-6 py-2 hover:bg-cyber-orange hover:text-black transition-all">
-                  联系我们
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ExperienceSection />
 
         {/* 关于我们区块 - 带Tab选项卡 */}
         <section id="about" className="min-h-screen bg-dark-100 border-t border-cyber-blue border-opacity-30 p-8">
