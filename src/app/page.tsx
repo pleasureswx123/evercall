@@ -1,13 +1,13 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { BackgroundPaths } from '@/components/BackgroundPaths'
 import { CharacterShowcase } from '@/components/CharacterShowcase'
 import { NewsSection } from '@/components/NewsSection'
 import { TechnologySection } from '@/components/TechnologySection'
 import { ExperienceSection } from '@/components/ExperienceSection'
 import { SectionDivider } from '@/components/SectionDivider'
 import { SideNav } from '@/components/SideNav'
+import { HomeSection } from '@/components/HomeSection'
 
 export default function Home() {
   const [loading, setLoading] = useState(true)
@@ -114,106 +114,8 @@ export default function Home() {
 
       {/* 主内容区域 */}
       <div className="ml-20 min-h-screen">
-        {/* 首页 */}
-        <section id="home" className="h-screen flex items-center justify-center relative overflow-hidden">
-
-          <div className="text-center z-10 relative">
-            {/* 静态资源图片logo - 带特效 */}
-            <div className="mb-6 relative group logo-container transform-3d">
-              {/* 外层发光环 */}
-              {/* <div className="absolute inset-0 bg-gradient-to-r from-cyber-blue via-cyber-purple to-cyber-orange opacity-30 blur-3xl rounded-full animate-pulse group-hover:opacity-50 transition-opacity duration-500"></div> */}
-
-              {/* 中层发光环 */}
-              {/* <div className="absolute inset-4 bg-cyber-blue opacity-20 blur-2xl rounded-full animate-ping"></div> */}
-
-              {/* 能量波动环 */}
-              {/* <div className="absolute inset-0 border-2 border-cyber-blue rounded-full animate-energy-wave"></div> */}
-              {/* <div className="absolute inset-2 border border-cyber-orange rounded-full animate-energy-wave" style={{ animationDelay: '0.5s' }}></div> */}
-              {/* <div className="absolute inset-4 border border-cyber-purple rounded-full animate-energy-wave" style={{ animationDelay: '1s' }}></div> */}
-
-              {/* Logo容器 */}
-              <div className="relative z-10 p-8">
-                <img
-                  src="/logo.png"
-                  alt="Evercall Logo"
-                  className="w-128 mx-auto object-contain relative z-20 
-                           drop-shadow-[0_0_20px_rgba(0,255,255,0.8)] 
-                           hover:drop-shadow-[0_0_40px_rgba(0,255,255,1)] 
-                           transition-all duration-500 
-                           hover:scale-110 
-                           animate-breathe
-                           filter hover:brightness-125"
-                  onError={(e) => {
-                    // 如果图片加载失败，隐藏img标签
-                    e.currentTarget.style.display = 'none';
-                  }}
-                />
-
-                {/* 旋转边框效果 */}
-                {/* <div className="absolute inset-0 border-2 border-transparent bg-gradient-to-r from-cyber-blue via-transparent to-cyber-orange rounded-full animate-spin-slow opacity-60"></div> */}
-
-                {/* 反向旋转边框 */}
-                {/* <div className="absolute inset-1 border border-transparent bg-gradient-to-l from-cyber-orange via-transparent to-cyber-blue rounded-full animate-spin-slow opacity-40" style={{ animationDirection: 'reverse' }}></div> */}
-
-                {/* 脉冲边框效果 */}
-                {/* <div className="absolute inset-2 border border-cyber-blue rounded-full animate-glow-border"></div> */}
-
-                {/* 内部发光点 */}
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-cyber-blue rounded-full animate-pulse opacity-80"></div>
-
-                {/* 四角发光点 */}
-                <div className="absolute top-4 left-4 w-1 h-1 bg-cyber-orange rounded-full animate-pulse"></div>
-                <div className="absolute top-4 right-4 w-1 h-1 bg-cyber-blue rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                <div className="absolute bottom-4 left-4 w-1 h-1 bg-cyber-purple rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
-                <div className="absolute bottom-4 right-4 w-1 h-1 bg-cyber-green rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
-              </div>
-
-              {/* 底部光束效果 */}
-              {/* <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1 h-20 bg-gradient-to-b from-cyber-blue to-transparent opacity-60 animate-pulse"></div> */}
-
-              {/* 侧面光束效果 */}
-              {/* <div className="absolute top-1/2 left-0 transform -translate-y-1/2 h-1 w-20 bg-gradient-to-r from-cyber-orange to-transparent opacity-40 animate-pulse" style={{ animationDelay: '0.3s' }}></div> */}
-              {/* <div className="absolute top-1/2 right-0 transform -translate-y-1/2 h-1 w-20 bg-gradient-to-l from-cyber-purple to-transparent opacity-40 animate-pulse" style={{ animationDelay: '0.7s' }}></div> */}
-
-              {/* 全息扫描线 */}
-              {/* <div className="absolute inset-0 overflow-hidden rounded-full">
-                <div className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-cyber-blue to-transparent opacity-60 animate-holo-scan"></div>
-              </div> */}
-            </div>
-            {/* <div className="font-orbitron text-6xl md:text-8xl font-bold mb-4">
-              <span className="text-white">EVER</span>
-              <span className="text-cyber-blue neon-blue">CALL</span>
-            </div> */}
-            {/* <div className="font-mono text-cyber-orange text-lg mb-8">
-              AI COMPANION SYSTEM
-            </div> */}
-            <div className="text-white text-5xl mb-12 max-w-4xl mx-auto">
-              连接平行世界
-            </div>
-            <div className="text-gray-400 text-xl mb-8 max-w-3xl mx-auto leading-relaxed">
-              拥有真实情感、独特性格和永久记忆的二次元AI角色，为你带来前所未有的互动体验
-            </div>
-
-            {/* CTA 按钮 */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <button className="bg-cyber-blue text-black px-8 py-3 font-mono font-bold hover:bg-white transition-colors duration-300 cyber-border">
-                立即体验
-              </button>
-              <button className="border border-cyber-blue text-cyber-blue px-8 py-3 font-mono hover:bg-cyber-blue hover:text-black transition-all duration-300">
-                了解更多
-              </button>
-            </div>
-          </div>
-          {/* 动态背景路径 */}
-          <BackgroundPaths />
-          {/* <div className="absolute inset-0 transform translate-x-[150px] translate-y-[150px] rotate-[315deg] scale-[1] z-0"><BackgroundPaths /></div> */}
-
-
-          {/* 装饰性元素 */}
-          <div className="absolute top-10 right-10 text-cyber-blue font-mono text-xs">
-            HTTPS://EVERCALL.AI/
-          </div>
-        </section>
+        {/* 首页区域 */}
+        <HomeSection />
 
         {/* 首页与角色展示区块之间的分隔 */}
         <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
