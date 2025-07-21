@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { BackgroundPaths } from '@/components/BackgroundPaths'
 import { CharacterShowcase } from '@/components/CharacterShowcase'
-import { Rotate3D } from 'lucide-react'
+import { NewsSection } from '@/components/NewsSection'
 
 export default function Home() {
   const [loading, setLoading] = useState(true)
@@ -263,65 +263,7 @@ export default function Home() {
 
 
         {/* 新闻/公告区块 */}
-        <section id="news" className="min-h-screen bg-dark-100 border-t border-cyber-blue border-opacity-30 p-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <div className="text-cyber-blue font-mono text-sm mb-2">BREAKING NEWS</div>
-                <div className="text-white text-2xl font-orbitron">2025 // 01 / 19</div>
-                <div className="text-cyber-blue font-mono text-xs mt-2">HTTPS://EVERCALL.AI/</div>
-              </div>
-              <button className="text-cyber-blue font-mono text-sm border border-cyber-blue px-4 py-2 hover:bg-cyber-blue hover:text-black transition-all">
-                更多情報<br />READ MORE
-              </button>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-              <div className="text-cyber-blue font-mono text-sm border-b border-cyber-blue pb-2">最新</div>
-              <div className="text-gray-400 font-mono text-sm border-b border-gray-600 pb-2 hover:text-cyber-blue cursor-pointer">公告</div>
-              <div className="text-gray-400 font-mono text-sm border-b border-gray-600 pb-2 hover:text-cyber-blue cursor-pointer">活動</div>
-              <div className="text-gray-400 font-mono text-sm border-b border-gray-600 pb-2 hover:text-cyber-blue cursor-pointer">新聞</div>
-            </div>
-
-            <div className="space-y-4">
-              <div className="border border-gray-600 p-4 hover:border-cyber-blue transition-colors cursor-pointer">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <div className="text-cyber-blue font-mono text-xs mb-1">公告</div>
-                    <div className="text-white text-sm mb-2">2025 // 01 / 19</div>
-                    <div className="text-white">[Evercall]AI陪伴系统重大更新公告</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="border border-gray-600 p-4 hover:border-cyber-blue transition-colors cursor-pointer">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <div className="text-cyber-orange font-mono text-xs mb-1">活動</div>
-                    <div className="text-white text-sm mb-2">2025 // 01 / 18</div>
-                    <div className="text-white">[活動預告]新角色「雪音」限時體驗即將開啟</div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="border border-gray-600 p-4 hover:border-cyber-blue transition-colors cursor-pointer">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <div className="text-cyber-blue font-mono text-xs mb-1">公告</div>
-                    <div className="text-white text-sm mb-2">2025 // 01 / 17</div>
-                    <div className="text-white">[Evercall]系統維護完成公告</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="text-center mt-8">
-              <button className="text-cyber-blue font-mono text-sm border border-cyber-blue px-6 py-2 hover:bg-cyber-blue hover:text-black transition-all">
-                READ MORE
-              </button>
-            </div>
-          </div>
-        </section>
+        <NewsSection />
 
         {/* 世界观/技术区块 */}
         <section id="tech" className="min-h-screen bg-dark-100 border-t border-cyber-blue border-opacity-30 p-8">
