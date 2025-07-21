@@ -74,7 +74,7 @@ export function CharacterShowcase() {
   const currentCharacter = characters[activeCharacter]
 
   return (
-    <section className="min-h-screen bg-black relative overflow-hidden">
+    <section id="characters" className="min-h-screen bg-black relative overflow-hidden">
       {/* 动态背景 - 日照香炉生紫烟效果 */}
       <div className="absolute inset-0">
         {/* 基础渐变背景 */}
