@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { BackgroundPaths } from '@/components/BackgroundPaths'
+import { CharacterShowcase } from '@/components/CharacterShowcase'
 import { Rotate3D } from 'lucide-react'
 
 export default function Home() {
@@ -258,59 +259,7 @@ export default function Home() {
         </section>
 
         {/* 角色展示区块 */}
-        <section id="characters" className="min-h-screen bg-black border-t border-cyber-blue border-opacity-30 p-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 h-full">
-              {/* 左侧角色信息 */}
-              <div className="flex flex-col justify-center">
-                <div className="mb-8">
-                  <div className="text-cyber-blue font-mono text-sm mb-2">AI COMPANION ://</div>
-                  <div className="text-cyber-orange font-mono text-lg mb-2">PROFILE</div>
-                  <div className="text-white font-orbitron text-4xl mb-4">SAKURA</div>
-                  <div className="text-white font-orbitron text-2xl mb-8">小樱</div>
-                </div>
-
-                <div className="space-y-4 mb-8">
-                  <div>
-                    <div className="text-cyber-blue font-mono text-xs mb-1">CHARACTER VOICE</div>
-                    <div className="text-white">花澤香菜</div>
-                    <div className="text-white">劉雪</div>
-                  </div>
-
-                  <div className="text-gray-400 leading-relaxed">
-                    温柔体贴的AI伙伴，擅长倾听和安慰。拥有独特的性格和永久记忆，能够理解你的情感状态，为你提供最贴心的陪伴体验。
-                  </div>
-                </div>
-
-                {/* 角色切换 */}
-                <div className="flex space-x-4">
-                  <div className="w-12 h-12 border-2 border-cyber-blue bg-cyber-blue bg-opacity-20 flex items-center justify-center cursor-pointer">
-                    <span className="text-cyber-blue text-xs">小樱</span>
-                  </div>
-                  <div className="w-12 h-12 border border-gray-600 flex items-center justify-center cursor-pointer hover:border-cyber-blue">
-                    <span className="text-gray-400 text-xs hover:text-cyber-blue">星野</span>
-                  </div>
-                  <div className="w-12 h-12 border border-gray-600 flex items-center justify-center cursor-pointer hover:border-cyber-blue">
-                    <span className="text-gray-400 text-xs hover:text-cyber-blue">雪音</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* 右侧角色图片区域 */}
-              <div className="flex items-center justify-center relative">
-                <div className="w-80 h-80 border border-cyber-blue border-opacity-30 flex items-center justify-center relative">
-                  <div className="text-6xl">🌸</div>
-                  <div className="absolute top-4 right-4 text-cyber-blue font-mono text-xs">
-                    SAKURA.AI
-                  </div>
-                  <div className="absolute bottom-4 left-4 text-gray-500 font-mono text-xs">
-                    CHARACTER_001
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <CharacterShowcase />
 
 
         {/* 新闻/公告区块 */}
@@ -489,8 +438,8 @@ export default function Home() {
                     setAboutTab('about')
                   }}
                   className={`font-mono text-sm pb-2 transition-all duration-300 cursor-pointer text-center relative z-20 ${aboutTab === 'about'
-                      ? 'text-cyber-blue border-b border-cyber-blue'
-                      : 'text-gray-400 border-b border-gray-600 hover:text-cyber-blue'
+                    ? 'text-cyber-blue border-b border-cyber-blue'
+                    : 'text-gray-400 border-b border-gray-600 hover:text-cyber-blue'
                     }`}
                   style={{ pointerEvents: 'auto' }}
                 >
@@ -505,8 +454,8 @@ export default function Home() {
                     setAboutTab('team')
                   }}
                   className={`font-mono text-sm pb-2 transition-all duration-300 cursor-pointer text-center relative z-20 ${aboutTab === 'team'
-                      ? 'text-cyber-orange border-b border-cyber-orange'
-                      : 'text-gray-400 border-b border-gray-600 hover:text-cyber-orange'
+                    ? 'text-cyber-orange border-b border-cyber-orange'
+                    : 'text-gray-400 border-b border-gray-600 hover:text-cyber-orange'
                     }`}
                   style={{ pointerEvents: 'auto' }}
                 >

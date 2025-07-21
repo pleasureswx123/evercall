@@ -400,3 +400,69 @@ html {
 .animate-glow-border {
   animation: glow-border 2s ease-in-out infinite;
 }
+
+/* 角色展示区块动画效果 */
+
+/* 烟雾浮动效果 */
+@keyframes float-smoke {
+  0%, 100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+    opacity: 0.1;
+  }
+  25% {
+    transform: translateY(-20px) translateX(10px) rotate(90deg);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-40px) translateX(-5px) rotate(180deg);
+    opacity: 0.2;
+  }
+  75% {
+    transform: translateY(-30px) translateX(-15px) rotate(270deg);
+    opacity: 0.4;
+  }
+}
+
+.animate-float-smoke {
+  animation: float-smoke 8s ease-in-out infinite;
+}
+
+/* 闪烁效果 */
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+}
+
+.animate-twinkle {
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+/* 慢速弹跳效果 */
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s ease-in-out infinite;
+}
+
+/* 扫描线效果 */
+@keyframes scan-line {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
