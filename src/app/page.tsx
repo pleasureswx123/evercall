@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { BackgroundPaths } from '@/components/BackgroundPaths'
 import { CharacterShowcase } from '@/components/CharacterShowcase'
 import { NewsSection } from '@/components/NewsSection'
+import { TechnologySection } from '@/components/TechnologySection'
 
 export default function Home() {
   const [loading, setLoading] = useState(true)
@@ -266,57 +267,7 @@ export default function Home() {
         <NewsSection />
 
         {/* 世界观/技术区块 */}
-        <section id="tech" className="min-h-screen bg-dark-100 border-t border-cyber-blue border-opacity-30 p-8">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-              <div className="text-center p-6 border border-gray-600 hover:border-cyber-blue transition-colors cursor-pointer">
-                <div className="text-cyber-blue font-orbitron text-lg mb-2">DEEP LEARNING</div>
-                <div className="text-white mb-4">深度学习引擎</div>
-                <div className="text-gray-400 text-sm">采用最新的大语言模型技术，结合情感计算和个性化算法</div>
-              </div>
-
-              <div className="text-center p-6 border border-gray-600 hover:border-cyber-blue transition-colors cursor-pointer">
-                <div className="text-cyber-orange font-orbitron text-lg mb-2">MEMORY SYSTEM</div>
-                <div className="text-white mb-4">记忆网络系统</div>
-                <div className="text-gray-400 text-sm">创新的记忆架构设计，实现长期记忆存储和检索</div>
-              </div>
-
-              <div className="text-center p-6 border border-gray-600 hover:border-cyber-blue transition-colors cursor-pointer">
-                <div className="text-cyber-green font-orbitron text-lg mb-2">MULTIMODAL</div>
-                <div className="text-white mb-4">多模态交互</div>
-                <div className="text-gray-400 text-sm">支持多种交互方式，提供丰富的沟通体验</div>
-              </div>
-            </div>
-
-            <div className="text-center mb-8">
-              <div className="text-cyber-blue font-mono text-sm mb-2">WORLD</div>
-              <div className="text-white font-orbitron text-2xl mb-4">返回</div>
-              <div className="text-white font-orbitron text-2xl">GO BACK</div>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <div className="text-center p-4 border border-gray-600 hover:border-cyber-blue transition-colors cursor-pointer">
-                <div className="text-cyber-blue font-mono text-xs mb-2">GALLERY</div>
-                <div className="text-white text-sm">画廊</div>
-              </div>
-
-              <div className="text-center p-4 border border-gray-600 hover:border-cyber-blue transition-colors cursor-pointer">
-                <div className="text-cyber-orange font-mono text-xs mb-2">VIDEO</div>
-                <div className="text-white text-sm">视频</div>
-              </div>
-
-              <div className="text-center p-4 border border-gray-600 hover:border-cyber-blue transition-colors cursor-pointer">
-                <div className="text-cyber-green font-mono text-xs mb-2">ABOUT AI</div>
-                <div className="text-white text-sm">关于AI</div>
-              </div>
-
-              <div className="text-center p-4 border border-gray-600 hover:border-cyber-blue transition-colors cursor-pointer">
-                <div className="text-cyber-purple font-mono text-xs mb-2">EXPERIENCE</div>
-                <div className="text-white text-sm">体验</div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <TechnologySection />
 
         {/* 体验区块 */}
         <section id="experience" className="min-h-screen bg-black border-t border-cyber-blue border-opacity-30 p-8">

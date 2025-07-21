@@ -498,3 +498,71 @@ html {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* 技术区块动画效果 */
+
+/* 电路板脉冲效果 */
+@keyframes circuit-pulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-circuit-pulse {
+  animation: circuit-pulse 3s ease-in-out infinite;
+}
+
+/* 数据传输效果 */
+@keyframes data-flow-horizontal {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.animate-data-flow-horizontal {
+  animation: data-flow-horizontal 4s linear infinite;
+}
+
+/* 技术卡片悬停效果 */
+.tech-card-hover {
+  transition: all 0.3s ease;
+}
+
+.tech-card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+}
+
+/* 能量波动效果 */
+@keyframes energy-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+}
+
+.animate-energy-pulse {
+  animation: energy-pulse 2s ease-in-out infinite;
+}
