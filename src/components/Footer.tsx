@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { Mail, MessageCircle, Users } from 'lucide-react'
 
-const Footer = () => {
+export function Footer () {
   const contactInfo = [
     {
       icon: Mail,
@@ -200,5 +200,3 @@ const Footer = () => {
     </footer>
   )
 }
-
-export default Footer
