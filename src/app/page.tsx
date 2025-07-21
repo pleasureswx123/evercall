@@ -6,6 +6,7 @@ import { CharacterShowcase } from '@/components/CharacterShowcase'
 import { NewsSection } from '@/components/NewsSection'
 import { TechnologySection } from '@/components/TechnologySection'
 import { ExperienceSection } from '@/components/ExperienceSection'
+import { SectionDivider } from '@/components/SectionDivider'
 
 export default function Home() {
   const [loading, setLoading] = useState(true)
@@ -260,18 +261,36 @@ export default function Home() {
           </div>
         </section>
 
+        {/* 首页与角色展示区块之间的分隔 */}
+        <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
+        <SectionDivider variant="gradient" color="purple" />
+
         {/* 角色展示区块 */}
         <CharacterShowcase />
 
+        {/* 角色展示与新闻区块之间的分隔 */}
+        <SectionDivider variant="gradient" color="purple" />
 
         {/* 新闻/公告区块 */}
         <NewsSection />
 
+        {/* 新闻与技术区块之间的分隔 */}
+        <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
+        <SectionDivider variant="gradient" color="purple" />
+
         {/* 世界观/技术区块 */}
         <TechnologySection />
 
+        {/* 技术与体验区块之间的分隔 */}
+        <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
+        <SectionDivider variant="gradient" color="purple" />
+
         {/* 体验区块 */}
         <ExperienceSection />
+
+        {/* 体验与关于我们区块之间的分隔 */}
+        <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
+        <SectionDivider variant="gradient" color="purple" />
 
         {/* 关于我们区块 - 带Tab选项卡 */}
         <section id="about" className="min-h-screen bg-dark-100 border-t border-cyber-blue border-opacity-30 p-8">
@@ -490,6 +509,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
+        <SectionDivider variant="gradient" color="purple" />
 
         {/* 页脚 */}
         <footer className="bg-black border-t border-cyber-blue border-opacity-30 p-8">
