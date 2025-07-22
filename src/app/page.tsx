@@ -89,7 +89,7 @@ export default function Home() {
               e.currentTarget.style.display = 'none';
             }}
           />
-          <div className="text-white font-mono text-sm mb-4">
+          <div className="text-white font-sans text-sm mb-4">
             LOADING - {loadingProgress}% <span className="loading-dots"></span>
           </div>
           <div className="w-64 h-1 bg-dark-300 rounded">
@@ -98,7 +98,7 @@ export default function Home() {
               style={{ width: `${loadingProgress}%` }}
             ></div>
           </div>
-          <div className="text-cyber-blue font-mono text-xs mt-4">
+          <div className="text-cyber-blue font-sans text-xs mt-4">
             EVERCALL// https://evercall.ai/
           </div>
         </div>
@@ -119,43 +119,22 @@ export default function Home() {
         {/* 首页区域 */}
         <HomeSection />
 
-        {/* 首页与角色展示区块之间的分隔 */}
-        <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
-        <SectionDivider variant="gradient" color="purple" />
-
         {/* 角色展示区块 */}
         <CharacterShowcase />
-
-        {/* 角色展示与新闻区块之间的分隔 */}
-        <SectionDivider variant="gradient" color="purple" />
 
         {/* 新闻/公告区块 */}
         <NewsSection />
 
-        {/* 新闻与技术区块之间的分隔 */}
-        <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
-        <SectionDivider variant="gradient" color="purple" />
-
         {/* 世界观/技术区块 */}
         <TechnologySection />
-
-        {/* 技术与体验区块之间的分隔 */}
-        <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
-        <SectionDivider variant="gradient" color="purple" />
 
         {/* 体验区块 */}
         <ExperienceSection />
 
-        {/* 体验与关于我们区块之间的分隔 */}
-        <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
-        <SectionDivider variant="gradient" color="purple" />
-
         {/* 关于我们区块 - 带Tab选项卡 */}
         <AboutSection />
 
-        <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
-        <SectionDivider variant="gradient" color="purple" />
-
+        {/* footer页脚 */}
         <FooterSection />
       </div>
     </main>

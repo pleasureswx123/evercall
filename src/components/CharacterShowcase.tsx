@@ -74,37 +74,26 @@ export function CharacterShowcase() {
   const currentCharacter = characters[activeCharacter]
 
   return (
-    <section id="characters" className="min-h-screen bg-black relative overflow-hidden">
+    <section id="characters" className="min-h-screen bg-black border-t border-cyber-blue border-opacity-30 relative overflow-hidden">
       {/* 动态背景 - 日照香炉生紫烟效果 */}
       <div className="absolute inset-0">
-        {/* 基础渐变背景 */}
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 via-black to-blue-900/20"></div>
-        
-        {/* 动态烟雾效果 */}
-        <div className="absolute inset-0">
-          {[...Array(6)].map((_, i) => (
-            <div
-              key={i}
-              className={`absolute rounded-full opacity-10 animate-float-smoke`}
-              style={{
-                left: `${20 + i * 15}%`,
-                top: `${60 + Math.sin(i) * 20}%`,
-                width: `${100 + i * 50}px`,
-                height: `${100 + i * 50}px`,
-                background: `radial-gradient(circle, rgba(147, 51, 234, 0.3) 0%, rgba(59, 130, 246, 0.2) 50%, transparent 100%)`,
-                animationDelay: `${i * 0.5}s`,
-                animationDuration: `${8 + i * 2}s`
-              }}
-            />
-          ))}
-        </div>
+        {/* 基础渐变背景 - 增强版 */}
+        <div className="absolute inset-0 bg-gradient-to-br from-cyan-900/30 via-indigo-900/20 to-purple-900/30 animate-pulse-slow"></div>
+        <div className="absolute inset-0 bg-gradient-radial from-blue-500/5 via-transparent to-transparent"></div>
+
+        {/* 动态光晕效果 */}
+        <div className="absolute top-1/3 left-1/4 w-1/2 h-1/2 rounded-full bg-blue-500/5 blur-3xl animate-pulse-slow" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-1/3 right-1/4 w-1/3 h-1/3 rounded-full bg-purple-500/5 blur-3xl animate-pulse-slow" style={{ animationDelay: '2s' }}></div>
 
         {/* 光线效果 */}
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-yellow-400/30 via-purple-500/20 to-transparent animate-pulse"></div>
-        
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-0 left-1/4 w-1/2 h-[500px] bg-gradient-to-b from-cyber-blue/10 via-cyber-blue/5 to-transparent transform -rotate-45 blur-3xl"></div>
+          <div className="absolute bottom-0 right-1/4 w-1/2 h-[500px] bg-gradient-to-t from-purple-500/10 via-purple-500/5 to-transparent transform rotate-45 blur-3xl"></div>
+        </div>
+
         {/* 粒子效果 */}
         <div className="absolute inset-0">
-          {[...Array(20)].map((_, i) => (
+          {[...Array(30)].map((_, i) => (
             <div
               key={i}
               className="absolute w-1 h-1 bg-purple-400 rounded-full animate-twinkle"
@@ -112,7 +101,21 @@ export function CharacterShowcase() {
                 left: `${Math.random() * 100}%`,
                 top: `${Math.random() * 100}%`,
                 animationDelay: `${Math.random() * 3}s`,
-                animationDuration: `${2 + Math.random() * 2}s`
+                animationDuration: `${2 + Math.random() * 2}s`,
+                opacity: Math.random() * 0.7 + 0.3
+              }}
+            />
+          ))}
+          {[...Array(15)].map((_, i) => (
+            <div
+              key={i + 'cyan'}
+              className="absolute w-1 h-1 bg-cyan-400 rounded-full animate-twinkle"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 3}s`,
+                animationDuration: `${2 + Math.random() * 2}s`,
+                opacity: Math.random() * 0.7 + 0.3
               }}
             />
           ))}
@@ -124,7 +127,7 @@ export function CharacterShowcase() {
         <div className="max-w-7xl mx-auto px-8 w-full">
           {/* 标题区域 */}
           <div className="text-center mb-16">
-            <div className="text-cyber-blue font-mono text-sm mb-2">AI COMPANIONS ://</div>
+            <div className="text-cyber-blue font-sans text-sm mb-2">AI COMPANIONS ://</div>
             <div className="text-white font-orbitron text-4xl mb-4">角色展示</div>
             <div className="text-gray-400 max-w-2xl mx-auto">
               每个角色都拥有独特的性格、专长和记忆，为你带来不同的陪伴体验
@@ -149,33 +152,33 @@ export function CharacterShowcase() {
               {/* 角色详情 */}
               <div className="space-y-6">
                 <div className="border-l-2 border-cyber-blue pl-4">
-                  <div className="text-cyber-blue font-mono text-xs mb-1">性格 PERSONALITY</div>
+                  <div className="text-cyber-blue font-sans text-xs mb-1">性格 PERSONALITY</div>
                   <div className="text-white">{currentCharacter.personality}</div>
                 </div>
 
                 <div className="border-l-2 border-cyber-orange pl-4">
-                  <div className="text-cyber-orange font-mono text-xs mb-1">特长 SPECIALTY</div>
+                  <div className="text-cyber-orange font-sans text-xs mb-1">特长 SPECIALTY</div>
                   <div className="text-white">{currentCharacter.specialty}</div>
                 </div>
 
                 <div className="border-l-2 border-cyber-green pl-4">
-                  <div className="text-cyber-green font-mono text-xs mb-1">爱好 HOBBIES</div>
+                  <div className="text-cyber-green font-sans text-xs mb-1">爱好 HOBBIES</div>
                   <div className="text-white">{currentCharacter.hobbies}</div>
                 </div>
 
                 {/* 角色语录 */}
                 <div className="bg-gray-900/50 border border-gray-700 p-4 rounded-lg backdrop-blur-sm">
-                  <div className="text-gray-400 font-mono text-xs mb-2">SIGNATURE QUOTE</div>
+                  <div className="text-gray-400 font-sans text-xs mb-2">SIGNATURE QUOTE</div>
                   <div className="text-white italic text-lg">"{currentCharacter.quote}"</div>
                 </div>
               </div>
 
               {/* 交互按钮 */}
               <div className="mt-8 flex space-x-4">
-                <button className="bg-cyber-blue text-black px-6 py-3 font-mono font-bold hover:bg-white transition-all duration-300 transform hover:scale-105">
+                <button className="bg-cyber-blue text-black px-6 py-3 font-sans font-bold hover:bg-white transition-all duration-300 transform hover:scale-105">
                   开始对话
                 </button>
-                <button className="border border-cyber-blue text-cyber-blue px-6 py-3 font-mono hover:bg-cyber-blue hover:text-black transition-all duration-300">
+                <button className="border border-cyber-blue text-cyber-blue px-6 py-3 font-sans hover:bg-cyber-blue hover:text-black transition-all duration-300">
                   了解更多
                 </button>
               </div>
@@ -188,18 +191,15 @@ export function CharacterShowcase() {
                 <div className="w-80 h-80 relative">
                   {/* 外层发光环 */}
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-500/30 via-blue-500/30 to-pink-500/30 rounded-full blur-xl animate-pulse"></div>
-                  
+
                   {/* 角色容器 */}
                   <div className="absolute inset-4 border-2 border-cyber-blue/50 rounded-full bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm flex items-center justify-center">
                     <div className="text-8xl animate-bounce-slow">{currentCharacter.emoji}</div>
                   </div>
 
                   {/* 装饰性元素 */}
-                  <div className="absolute top-4 right-4 text-cyber-blue font-mono text-xs">
+                  <div className="absolute top-4 right-4 text-cyber-blue font-sans text-xs">
                     {currentCharacter.nameEn.toUpperCase()}.AI
-                  </div>
-                  <div className="absolute bottom-4 left-4 text-gray-500 font-mono text-xs">
-                    CHARACTER_{String(activeCharacter + 1).padStart(3, '0')}
                   </div>
 
                   {/* 旋转装饰环 */}
@@ -214,15 +214,14 @@ export function CharacterShowcase() {
                   <button
                     key={character.id}
                     onClick={() => handleCharacterChange(index)}
-                    className={`w-16 h-16 border-2 flex items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-110 ${
-                      index === activeCharacter
-                        ? 'border-cyber-blue bg-cyber-blue/20 text-cyber-blue'
-                        : 'border-gray-600 hover:border-cyber-blue text-gray-400 hover:text-cyber-blue'
-                    }`}
+                    className={`w-16 h-16 border-2 flex items-center justify-center cursor-pointer transition-all duration-300 transform hover:scale-110 ${index === activeCharacter
+                      ? 'border-cyber-blue bg-cyber-blue/20 text-cyber-blue'
+                      : 'border-gray-600 hover:border-cyber-blue text-gray-400 hover:text-cyber-blue'
+                      }`}
                   >
                     <div className="text-center">
                       <div className="text-lg">{character.emoji}</div>
-                      <div className="text-xs font-mono">{character.name}</div>
+                      <div className="text-xs font-sans">{character.name}</div>
                     </div>
                   </button>
                 ))}
@@ -233,9 +232,8 @@ export function CharacterShowcase() {
                 {characters.map((_, index) => (
                   <div
                     key={index}
-                    className={`h-1 transition-all duration-300 ${
-                      index === activeCharacter ? 'w-8 bg-cyber-blue' : 'w-2 bg-gray-600'
-                    }`}
+                    className={`h-1 transition-all duration-300 ${index === activeCharacter ? 'w-8 bg-cyber-blue' : 'w-2 bg-gray-600'
+                      }`}
                   />
                 ))}
               </div>
@@ -244,8 +242,6 @@ export function CharacterShowcase() {
         </div>
       </div>
 
-      {/* 底部装饰 */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
     </section>
   )
 }

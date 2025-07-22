@@ -175,12 +175,6 @@ export function ExperienceSection() {
             />
           ))}
         </div>
-
-        {/* 光束效果 */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyber-blue/50 to-transparent animate-pulse"></div>
-          <div className="absolute top-3/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyber-orange/50 to-transparent animate-pulse" style={{ animationDelay: '2s' }}></div>
-        </div>
       </div>
 
       <div className="relative z-10 p-8">
@@ -189,7 +183,7 @@ export function ExperienceSection() {
           <div className="text-center mb-16">
             <div className="flex items-center justify-center mb-6">
               <div className="w-3 h-3 bg-cyber-blue rounded-full animate-pulse mr-4"></div>
-              <div className="text-cyber-blue font-mono text-sm">EXPERIENCE EVERCALL</div>
+              <div className="text-cyber-blue font-sans text-sm">EXPERIENCE EVERCALL</div>
               <div className="w-3 h-3 bg-cyber-blue rounded-full animate-pulse ml-4"></div>
             </div>
             <div className="text-white font-orbitron text-4xl mb-6">体验方式</div>
@@ -223,7 +217,7 @@ export function ExperienceSection() {
                     <div className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">
                       {option.icon}
                     </div>
-                    <div className={`text-${option.color} font-mono text-xs mb-2`}>
+                    <div className={`text-${option.color} font-sans text-xs mb-2`}>
                       {option.titleEn}
                     </div>
                     <div className="text-white font-medium text-lg">
@@ -241,7 +235,7 @@ export function ExperienceSection() {
                     {option.features.slice(0, 2).map((feature, idx) => (
                       <span
                         key={idx}
-                        className={`px-2 py-1 text-xs font-mono border border-${option.color}/30 text-${option.color} bg-${option.color}/5 rounded-full`}
+                        className={`px-2 py-1 text-xs font-sans text-${option.color} bg-${option.color}/5 rounded-full`}
                       >
                         {feature}
                       </span>
@@ -249,25 +243,20 @@ export function ExperienceSection() {
                   </div>
 
                   {/* 统计信息 */}
-                  <div className="space-y-2 mb-6">
+                  {/* <div className="space-y-2 mb-6">
                     {option.stats.map((stat, idx) => (
                       <div key={idx} className="flex justify-between items-center">
                         <span className="text-gray-500 text-xs">{stat.label}</span>
-                        <span className={`text-${option.color} font-mono text-sm`}>
+                        <span className={`text-${option.color} font-sans text-sm`}>
                           {stat.value}
                         </span>
                       </div>
                     ))}
-                  </div>
-
-                  {/* 操作按钮 */}
-                  <button className={`w-full py-3 border border-${option.color} text-${option.color} font-mono text-sm hover:bg-${option.color} hover:text-black transition-all duration-300 group-hover:shadow-lg group-hover:shadow-${option.color}/20`}>
-                    {option.buttonText}
-                  </button>
+                  </div> */}
 
                   {/* 查看详情指示器 */}
                   <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className={`text-${option.color} font-mono text-xs`}>
+                    <div className={`text-${option.color} font-sans text-xs`}>
                       详情 →
                     </div>
                   </div>
@@ -290,7 +279,7 @@ export function ExperienceSection() {
                 <div className="flex items-center">
                   <div className="text-5xl mr-6">{selectedOption.icon}</div>
                   <div>
-                    <div className={`text-${selectedOption.color} font-mono text-sm mb-1`}>
+                    <div className={`text-${selectedOption.color} font-sans text-sm mb-1`}>
                       {selectedOption.titleEn}
                     </div>
                     <div className="text-white font-orbitron text-2xl">
@@ -319,7 +308,7 @@ export function ExperienceSection() {
                   <div className="space-y-3">
                     {selectedOption.details.steps.map((step, idx) => (
                       <div key={idx} className="flex items-start">
-                        <div className={`w-6 h-6 rounded-full bg-${selectedOption.color} text-black text-xs flex items-center justify-center mr-3 mt-0.5 font-mono`}>
+                        <div className={`w-6 h-6 rounded-full bg-${selectedOption.color} text-black text-xs flex items-center justify-center mr-3 mt-0.5 font-sans`}>
                           {idx + 1}
                         </div>
                         <div className="text-gray-300">{step}</div>
@@ -357,7 +346,7 @@ export function ExperienceSection() {
                         <div className={`text-${selectedOption.color} font-orbitron text-xl mb-1`}>
                           {stat.value}
                         </div>
-                        <div className="text-gray-400 font-mono text-xs">
+                        <div className="text-gray-400 font-sans text-xs">
                           {stat.label}
                         </div>
                       </div>
@@ -368,10 +357,10 @@ export function ExperienceSection() {
 
               {/* 底部操作 */}
               <div className="flex justify-center space-x-4 mt-8">
-                <button className={`px-8 py-3 bg-${selectedOption.color} text-black font-mono hover:bg-white transition-all duration-300`}>
+                <button className={`px-8 py-3 bg-${selectedOption.color} text-black font-sans hover:bg-white transition-all duration-300`}>
                   {selectedOption.buttonText}
                 </button>
-                <button className={`px-8 py-3 border border-${selectedOption.color} text-${selectedOption.color} font-mono hover:bg-${selectedOption.color} hover:text-black transition-all duration-300`}>
+                <button className={`px-8 py-3 border border-${selectedOption.color} text-${selectedOption.color} font-sans hover:bg-${selectedOption.color} hover:text-black transition-all duration-300`}>
                   了解更多
                 </button>
               </div>

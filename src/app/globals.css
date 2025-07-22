@@ -736,4 +736,112 @@ html {
 
 .animate-energy-transfer {
   animation: energy-transfer 2s linear infinite;
+}/* 打字机效果
+ */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #00ffff }
+}
+
+.animate-typing {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid #00ffff;
+  animation: 
+    typing 3.5s steps(40, end),
+    blink-caret 0.75s step-end infinite;
+}
+
+/* 3D翻转效果 */
+@keyframes flip {
+  0% {
+    transform: perspective(400px) rotateY(0);
+  }
+  100% {
+    transform: perspective(400px) rotateY(360deg);
+  }
+}
+
+.animate-flip {
+  animation: flip 6s ease-in-out infinite;
+  transform-style: preserve-3d;
+}
+
+/* 悬浮按钮效果 */
+@keyframes button-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(0, 255, 255, 0.5), 0 0 10px rgba(0, 255, 255, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8), 0 0 20px rgba(0, 255, 255, 0.5);
+  }
+}
+
+.animate-button-glow {
+  animation: button-glow 2s ease-in-out infinite;
+}
+
+/* 文字闪烁效果 */
+@keyframes text-flicker {
+  0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 4px #00ffff, 0 0 11px #00ffff, 0 0 19px #00ffff;
+  }
+  20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+    opacity: 0.4;
+    text-shadow: none;
+  }
+}
+
+.animate-text-flicker {
+  animation: text-flicker 5s linear infinite;
+}
+
+/* 粒子漂浮效果 */
+@keyframes particle-float {
+  0%, 100% {
+    transform: translateY(0) translateX(0) rotate(0);
+    opacity: 0.3;
+  }
+  25% {
+    transform: translateY(-15px) translateX(10px) rotate(90deg);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-30px) translateX(-5px) rotate(180deg);
+    opacity: 0.9;
+  }
+  75% {
+    transform: translateY(-15px) translateX(-15px) rotate(270deg);
+    opacity: 0.6;
+  }
+}
+
+.animate-particle-float {
+  animation: particle-float 10s ease-in-out infinite;
+}
+
+/* 霓虹灯效果 */
+@keyframes neon-pulse {
+  0%, 100% {
+    text-shadow: 
+      0 0 5px rgba(0, 255, 255, 0.7),
+      0 0 10px rgba(0, 255, 255, 0.5),
+      0 0 15px rgba(0, 255, 255, 0.3);
+  }
+  50% {
+    text-shadow: 
+      0 0 10px rgba(0, 255, 255, 0.9),
+      0 0 20px rgba(0, 255, 255, 0.7),
+      0 0 30px rgba(0, 255, 255, 0.5);
+  }
+}
+
+.animate-neon-pulse {
+  animation: neon-pulse 2s ease-in-out infinite;
 }

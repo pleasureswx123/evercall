@@ -139,50 +139,29 @@ export function TechnologySection() {
     <section id="tech" className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-blue-900/20 border-t border-cyber-blue border-opacity-30 relative overflow-hidden">
       {/* 动态背景效果 */}
       <div className="absolute inset-0">
-        {/* 电路板背景 */}
+        {/* 电路板效果 */}
         <div className="absolute inset-0 opacity-10">
-          <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-            <defs>
-              <pattern id="circuit" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-                <path d="M0,10 L20,10 M10,0 L10,20" stroke="currentColor" strokeWidth="0.5" fill="none" className="text-cyber-blue"/>
-                <circle cx="10" cy="10" r="1" fill="currentColor" className="text-cyber-blue"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#circuit)"/>
+          <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <pattern id="circuit-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+              <path d="M10,10 L90,10 L90,90 L10,90 Z" fill="none" stroke="#00ffff" strokeWidth="0.5" />
+              <path d="M30,10 L30,30 L50,30 L50,50 L70,50 L70,90" fill="none" stroke="#00ffff" strokeWidth="0.5" />
+              <path d="M10,50 L30,50 L30,70 L50,70 L50,90" fill="none" stroke="#00ffff" strokeWidth="0.5" />
+              <circle cx="30" cy="30" r="3" fill="#00ffff" className="animate-circuit-pulse" />
+              <circle cx="50" cy="50" r="3" fill="#00ffff" className="animate-circuit-pulse" style={{ animationDelay: '0.5s' }} />
+              <circle cx="30" cy="70" r="3" fill="#00ffff" className="animate-circuit-pulse" style={{ animationDelay: '1s' }} />
+            </pattern>
+            <rect x="0" y="0" width="100%" height="100%" fill="url(#circuit-pattern)" />
           </svg>
-        </div>
-
-        {/* 能量波动效果 */}
-        <div className="absolute inset-0">
-          {[...Array(5)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-2 h-2 bg-cyber-blue rounded-full animate-pulse"
-              style={{
-                left: `${20 + i * 15}%`,
-                top: `${30 + Math.sin(i) * 20}%`,
-                animationDelay: `${i * 0.5}s`,
-                animationDuration: `${2 + i * 0.5}s`
-              }}
-            />
-          ))}
-        </div>
-
-        {/* 数据传输线 */}
-        <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyber-blue/50 to-transparent animate-pulse"></div>
-          <div className="absolute top-2/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyber-orange/50 to-transparent animate-pulse" style={{ animationDelay: '1s' }}></div>
-          <div className="absolute top-3/4 left-0 w-full h-px bg-gradient-to-r from-transparent via-cyber-green/50 to-transparent animate-pulse" style={{ animationDelay: '2s' }}></div>
         </div>
       </div>
 
       <div className="relative z-10 p-8">
         <div className="max-w-7xl mx-auto">
           {/* 头部区域 */}
-          <div className="text-center mb-16">
+          <div className="text-center mb-8">
             <div className="flex items-center justify-center mb-6">
               <div className="w-3 h-3 bg-cyber-blue rounded-full animate-pulse mr-4"></div>
-              <div className="text-cyber-blue font-mono text-sm">TECHNOLOGY ARCHITECTURE</div>
+              <div className="text-cyber-blue font-sans text-sm">TECHNOLOGY ARCHITECTURE</div>
               <div className="w-3 h-3 bg-cyber-blue rounded-full animate-pulse ml-4"></div>
             </div>
             <div className="text-white font-orbitron text-4xl mb-6">技术架构</div>
@@ -192,7 +171,7 @@ export function TechnologySection() {
           </div>
 
           {/* 分类导航 */}
-          <div className="flex justify-center mb-12">
+          <div className="flex justify-center mb-8">
             <div className="flex space-x-2 bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-lg p-2">
               {[
                 { key: 'all', label: '全部技术', count: techModules.length },
@@ -202,7 +181,7 @@ export function TechnologySection() {
                 <button
                   key={category.key}
                   onClick={() => setActiveCategory(category.key as any)}
-                  className={`px-6 py-3 font-mono text-sm transition-all duration-300 rounded-md relative overflow-hidden ${
+                  className={`px-6 py-3 font-sans text-sm transition-all duration-300 rounded-md relative overflow-hidden ${
                     activeCategory === category.key
                       ? 'bg-cyber-blue text-black'
                       : 'text-gray-400 hover:text-cyber-blue hover:bg-gray-800/50'
@@ -228,17 +207,14 @@ export function TechnologySection() {
                 {/* 悬停背景效果 */}
                 <div className={`absolute inset-0 ${tech.bgColor} opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
 
-                {/* 顶部装饰线 */}
-                <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-${tech.color} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300`}></div>
-
                 <div className="relative z-10 p-8">
                   {/* 图标和标题 */}
-                  <div className="flex items-center mb-6">
+                  <div className="flex items-center mb-3">
                     <div className="text-4xl mr-4 group-hover:scale-110 transition-transform duration-300">
                       {tech.icon}
                     </div>
                     <div>
-                      <div className={`text-${tech.color} font-mono text-xs mb-1`}>
+                      <div className={`text-${tech.color} font-sans text-xs mb-1`}>
                         {tech.titleEn}
                       </div>
                       <div className="text-white font-medium text-lg">
@@ -248,16 +224,16 @@ export function TechnologySection() {
                   </div>
 
                   {/* 描述 */}
-                  <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                  <p className="text-gray-400 text-sm leading-relaxed mb-3">
                     {tech.description}
                   </p>
 
                   {/* 特性标签 */}
-                  <div className="flex flex-wrap gap-2 mb-6">
+                  <div className="flex flex-wrap gap-2 mb-3">
                     {tech.features.map((feature, idx) => (
                       <span
                         key={idx}
-                        className={`px-3 py-1 text-xs font-mono border border-${tech.color}/30 text-${tech.color} bg-${tech.color}/5 rounded-full`}
+                        className={`px-3 py-1 text-xs font-sans text-gray-400 rounded-full`}
                       >
                         {feature}
                       </span>
@@ -269,7 +245,7 @@ export function TechnologySection() {
                     {tech.metrics.slice(0, 2).map((metric, idx) => (
                       <div key={idx} className="flex justify-between items-center">
                         <span className="text-gray-500 text-xs">{metric.label}</span>
-                        <span className={`text-${tech.color} font-mono text-sm`}>
+                        <span className={`text-${tech.color} font-sans text-sm`}>
                           {metric.value}{metric.unit}
                         </span>
                       </div>
@@ -278,7 +254,7 @@ export function TechnologySection() {
 
                   {/* 查看更多指示器 */}
                   <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className={`text-${tech.color} font-mono text-xs`}>
+                    <div className={`text-${tech.color} font-sans text-xs`}>
                       EXPLORE →
                     </div>
                   </div>
@@ -287,40 +263,6 @@ export function TechnologySection() {
             ))}
           </div>
 
-          {/* 技术统计面板 */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16">
-            <div className="text-center p-6 bg-gray-900/50 backdrop-blur-sm border border-gray-700">
-              <div className="text-cyber-blue font-orbitron text-2xl mb-2">6</div>
-              <div className="text-gray-400 font-mono text-sm">核心技术模块</div>
-            </div>
-            <div className="text-center p-6 bg-gray-900/50 backdrop-blur-sm border border-gray-700">
-              <div className="text-cyber-orange font-orbitron text-2xl mb-2">99.9%</div>
-              <div className="text-gray-400 font-mono text-sm">系统可用性</div>
-            </div>
-            <div className="text-center p-6 bg-gray-900/50 backdrop-blur-sm border border-gray-700">
-              <div className="text-cyber-green font-orbitron text-2xl mb-2">&lt;50ms</div>
-              <div className="text-gray-400 font-mono text-sm">平均响应时间</div>
-            </div>
-            <div className="text-center p-6 bg-gray-900/50 backdrop-blur-sm border border-gray-700">
-              <div className="text-cyber-purple font-orbitron text-2xl mb-2">100万+</div>
-              <div className="text-gray-400 font-mono text-sm">并发用户支持</div>
-            </div>
-          </div>
-
-          {/* 底部操作区 */}
-          <div className="text-center">
-            <div className="text-gray-400 font-mono text-sm mb-6">
-              想了解更多技术细节？点击上方技术模块查看详情
-            </div>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="px-8 py-3 bg-cyber-blue text-black font-mono font-bold hover:bg-white transition-all duration-300 transform hover:scale-105">
-                技术文档
-              </button>
-              <button className="px-8 py-3 border border-cyber-blue text-cyber-blue font-mono hover:bg-cyber-blue hover:text-black transition-all duration-300">
-                开发者API
-              </button>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -334,7 +276,7 @@ export function TechnologySection() {
                 <div className="flex items-center">
                   <div className="text-5xl mr-6">{selectedTech.icon}</div>
                   <div>
-                    <div className={`text-${selectedTech.color} font-mono text-sm mb-1`}>
+                    <div className={`text-${selectedTech.color} font-sans text-sm mb-1`}>
                       {selectedTech.titleEn}
                     </div>
                     <div className="text-white font-orbitron text-2xl">
@@ -370,7 +312,7 @@ export function TechnologySection() {
                       key={idx}
                       className={`p-4 border border-${selectedTech.color}/30 ${selectedTech.bgColor} text-center`}
                     >
-                      <div className={`text-${selectedTech.color} font-mono text-sm`}>
+                      <div className={`text-${selectedTech.color} font-sans text-sm`}>
                         {feature}
                       </div>
                     </div>
@@ -387,7 +329,7 @@ export function TechnologySection() {
                       <div className={`text-${selectedTech.color} font-orbitron text-2xl mb-2`}>
                         {metric.value}{metric.unit}
                       </div>
-                      <div className="text-gray-400 font-mono text-sm">
+                      <div className="text-gray-400 font-sans text-sm">
                         {metric.label}
                       </div>
                     </div>
@@ -397,10 +339,10 @@ export function TechnologySection() {
 
               {/* 底部操作 */}
               <div className="flex justify-center space-x-4">
-                <button className={`px-6 py-3 bg-${selectedTech.color} text-black font-mono hover:bg-white transition-all duration-300`}>
+                <button className={`px-6 py-3 bg-${selectedTech.color} text-black font-sans hover:bg-white transition-all duration-300`}>
                   查看文档
                 </button>
-                <button className={`px-6 py-3 border border-${selectedTech.color} text-${selectedTech.color} font-mono hover:bg-${selectedTech.color} hover:text-black transition-all duration-300`}>
+                <button className={`px-6 py-3 border border-${selectedTech.color} text-${selectedTech.color} font-sans hover:bg-${selectedTech.color} hover:text-black transition-all duration-300`}>
                   技术支持
                 </button>
               </div>

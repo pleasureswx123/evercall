@@ -98,7 +98,7 @@ export function NewsSection() {
   }, [])
 
   // 过滤新闻数据
-  const filteredNews = newsData.filter(item => 
+  const filteredNews = newsData.filter(item =>
     activeTab === 'all' || item.type === activeTab
   ).slice(0, visibleItems)
 
@@ -114,7 +114,7 @@ export function NewsSection() {
     const now = new Date()
     const diffTime = Math.abs(now.getTime() - date.getTime())
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-    
+
     if (diffDays === 1) return '今天'
     if (diffDays === 2) return '昨天'
     if (diffDays <= 7) return `${diffDays}天前`
@@ -122,30 +122,29 @@ export function NewsSection() {
   }
 
   return (
-    <section id="news" className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 border-t border-cyber-blue border-opacity-30 relative overflow-hidden">
-      {/* 动态背景效果 */}
+    <section id="news" className="min-h-screen bg-black border-t border-cyber-blue border-opacity-30 relative overflow-hidden">
+      {/* 增强的动态背景效果 */}
       <div className="absolute inset-0">
-        {/* 数据流背景 */}
-        <div className="absolute inset-0 opacity-5">
-          {[...Array(10)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute text-cyber-blue font-mono text-xs animate-data-stream"
-              style={{
-                left: `${i * 10}%`,
-                animationDelay: `${i * 0.5}s`,
-                animationDuration: `${10 + i}s`
-              }}
-            >
-              {Array.from({ length: 50 }, () => Math.random() > 0.5 ? '1' : '0').join('')}
-            </div>
-          ))}
+        {/* 基础渐变背景 */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-black to-pink-500/25"></div>
+
+        {/* 电路板效果 */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-full h-full">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <pattern id="circuit-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                <path d="M10,10 L90,10 L90,90 L10,90 Z" fill="none" stroke="#00ffff" strokeWidth="0.5" />
+                <path d="M30,10 L30,30 L50,30 L50,50 L70,50 L70,90" fill="none" stroke="#00ffff" strokeWidth="0.5" />
+                <path d="M10,50 L30,50 L30,70 L50,70 L50,90" fill="none" stroke="#00ffff" strokeWidth="0.5" />
+                <circle cx="30" cy="30" r="3" fill="#00ffff" className="animate-circuit-pulse" />
+                <circle cx="50" cy="50" r="3" fill="#00ffff" className="animate-circuit-pulse" style={{ animationDelay: '0.5s' }} />
+                <circle cx="30" cy="70" r="3" fill="#00ffff" className="animate-circuit-pulse" style={{ animationDelay: '1s' }} />
+              </pattern>
+              <rect x="0" y="0" width="100%" height="100%" fill="url(#circuit-pattern)" />
+            </svg>
+          </div>
         </div>
 
-        {/* 扫描线效果 */}
-        <div className="absolute inset-0">
-          <div className="absolute w-full h-0.5 bg-gradient-to-r from-transparent via-cyber-blue/30 to-transparent animate-scan-line"></div>
-        </div>
       </div>
 
       <div className="relative z-10 p-8">
@@ -155,16 +154,16 @@ export function NewsSection() {
             <div className="mb-6 lg:mb-0">
               <div className="flex items-center mb-4">
                 <div className="w-2 h-2 bg-cyber-blue rounded-full animate-pulse mr-3"></div>
-                <div className="text-cyber-blue font-mono text-sm">BREAKING NEWS SYSTEM</div>
+                <div className="text-cyber-blue font-sans text-sm">BREAKING NEWS SYSTEM</div>
               </div>
               <div className="text-white text-3xl font-orbitron mb-2">
-                {currentTime.toLocaleDateString('zh-CN', { 
-                  year: 'numeric', 
-                  month: '2-digit', 
-                  day: '2-digit' 
+                {currentTime.toLocaleDateString('zh-CN', {
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit'
                 }).replace(/\//g, ' // ')}
               </div>
-              <div className="text-cyber-blue font-mono text-xs">
+              <div className="text-cyber-blue font-sans text-xs">
                 REAL-TIME: {currentTime.toLocaleTimeString('zh-CN')} | HTTPS://EVERCALL.AI/
               </div>
             </div>
@@ -173,19 +172,19 @@ export function NewsSection() {
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <div className="text-center p-3 border border-gray-700 bg-gray-900/50 backdrop-blur-sm">
                 <div className="text-cyber-blue font-orbitron text-lg">{newsData.filter(n => n.isNew).length}</div>
-                <div className="text-gray-400 font-mono text-xs">NEW</div>
+                <div className="text-gray-400 font-sans text-xs">NEW</div>
               </div>
               <div className="text-center p-3 border border-gray-700 bg-gray-900/50 backdrop-blur-sm">
                 <div className="text-cyber-orange font-orbitron text-lg">{newsData.filter(n => n.isHot).length}</div>
-                <div className="text-gray-400 font-mono text-xs">HOT</div>
+                <div className="text-gray-400 font-sans text-xs">HOT</div>
               </div>
               <div className="text-center p-3 border border-gray-700 bg-gray-900/50 backdrop-blur-sm">
                 <div className="text-cyber-green font-orbitron text-lg">{newsData.length}</div>
-                <div className="text-gray-400 font-mono text-xs">TOTAL</div>
+                <div className="text-gray-400 font-sans text-xs">TOTAL</div>
               </div>
               <div className="text-center p-3 border border-gray-700 bg-gray-900/50 backdrop-blur-sm">
                 <div className="text-cyber-purple font-orbitron text-lg">24/7</div>
-                <div className="text-gray-400 font-mono text-xs">LIVE</div>
+                <div className="text-gray-400 font-sans text-xs">LIVE</div>
               </div>
             </div>
           </div>
@@ -202,11 +201,10 @@ export function NewsSection() {
                 <button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key as any)}
-                  className={`px-4 py-2 font-mono text-sm border transition-all duration-300 relative overflow-hidden group ${
-                    activeTab === tab.key
-                      ? 'border-cyber-blue text-cyber-blue bg-cyber-blue/10'
-                      : 'border-gray-600 text-gray-400 hover:border-cyber-blue hover:text-cyber-blue'
-                  }`}
+                  className={`px-4 py-2 font-sans text-sm border transition-all duration-300 relative overflow-hidden group ${activeTab === tab.key
+                    ? 'border-cyber-blue text-cyber-blue bg-cyber-blue/10'
+                    : 'border-gray-600 text-gray-400 hover:border-cyber-blue hover:text-cyber-blue'
+                    }`}
                 >
                   <span className="relative z-10">
                     {tab.label} ({tab.count})
@@ -229,10 +227,9 @@ export function NewsSection() {
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {/* 优先级指示器 */}
-                <div className={`absolute top-0 left-0 w-1 h-full ${
-                  item.priority === 'high' ? 'bg-red-500' :
+                <div className={`absolute top-0 left-0 w-1 h-full ${item.priority === 'high' ? 'bg-red-500' :
                   item.priority === 'medium' ? 'bg-yellow-500' : 'bg-green-500'
-                }`}></div>
+                  }`}></div>
 
                 {/* 悬停效果 */}
                 <div className="absolute inset-0 bg-gradient-to-r from-cyber-blue/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -241,21 +238,21 @@ export function NewsSection() {
                   {/* 头部信息 */}
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center space-x-2">
-                      <span className={`px-2 py-1 text-xs font-mono border ${typeConfig[item.type].bgColor} text-${typeConfig[item.type].color} border-${typeConfig[item.type].color}/30`}>
+                      <span className={`px-2 py-1 text-xs font-sans border ${typeConfig[item.type].bgColor} text-${typeConfig[item.type].color} border-${typeConfig[item.type].color}/30`}>
                         {typeConfig[item.type].label}
                       </span>
                       {item.isNew && (
-                        <span className="px-2 py-1 text-xs font-mono bg-red-500/20 text-red-400 border border-red-500/30 animate-pulse">
+                        <span className="px-2 py-1 text-xs font-sans bg-red-500/20 text-red-400 border border-red-500/30 animate-pulse">
                           NEW
                         </span>
                       )}
                       {item.isHot && (
-                        <span className="px-2 py-1 text-xs font-mono bg-orange-500/20 text-orange-400 border border-orange-500/30">
+                        <span className="px-2 py-1 text-xs font-sans bg-orange-500/20 text-orange-400 border border-orange-500/30">
                           HOT
                         </span>
                       )}
                     </div>
-                    <div className="text-gray-500 font-mono text-xs">
+                    <div className="text-gray-500 font-sans text-xs">
                       {getRelativeTime(item.date)}
                     </div>
                   </div>
@@ -272,10 +269,10 @@ export function NewsSection() {
 
                   {/* 底部信息 */}
                   <div className="flex items-center justify-between">
-                    <div className="text-gray-500 font-mono text-xs">
+                    <div className="text-gray-500 font-sans text-xs">
                       {formatDate(item.date)}
                     </div>
-                    <div className="text-cyber-blue font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="text-cyber-blue font-sans text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       READ MORE →
                     </div>
                   </div>
@@ -289,28 +286,13 @@ export function NewsSection() {
             <div className="text-center mb-8">
               <button
                 onClick={() => setVisibleItems(prev => prev + 4)}
-                className="px-8 py-3 border border-cyber-blue text-cyber-blue font-mono hover:bg-cyber-blue hover:text-black transition-all duration-300 relative overflow-hidden group"
+                className="px-8 py-3 border border-cyber-blue text-cyber-blue font-sans hover:bg-cyber-blue hover:text-black transition-all duration-300 relative overflow-hidden group"
               >
                 <span className="relative z-10">LOAD MORE ({newsData.length - visibleItems} 条剩余)</span>
                 <div className="absolute inset-0 bg-cyber-blue transform -translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
               </button>
             </div>
           )}
-
-          {/* 底部操作区 */}
-          <div className="flex flex-col sm:flex-row items-center justify-between pt-8 border-t border-gray-700">
-            <div className="text-gray-400 font-mono text-sm mb-4 sm:mb-0">
-              显示 {filteredNews.length} / {newsData.length} 条新闻
-            </div>
-            <div className="flex space-x-4">
-              <button className="px-6 py-2 border border-cyber-blue text-cyber-blue font-mono hover:bg-cyber-blue hover:text-black transition-all duration-300">
-                订阅更新
-              </button>
-              <button className="px-6 py-2 border border-cyber-orange text-cyber-orange font-mono hover:bg-cyber-orange hover:text-black transition-all duration-300">
-                RSS订阅
-              </button>
-            </div>
-          </div>
         </div>
       </div>
 
@@ -322,11 +304,11 @@ export function NewsSection() {
               {/* 模态框头部 */}
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center space-x-2">
-                  <span className={`px-2 py-1 text-xs font-mono ${typeConfig[selectedNews.type].bgColor} text-${typeConfig[selectedNews.type].color} border border-${typeConfig[selectedNews.type].color}/30`}>
+                  <span className={`px-2 py-1 text-xs font-sans ${typeConfig[selectedNews.type].bgColor} text-${typeConfig[selectedNews.type].color} border border-${typeConfig[selectedNews.type].color}/30`}>
                     {typeConfig[selectedNews.type].label}
                   </span>
                   {selectedNews.isNew && (
-                    <span className="px-2 py-1 text-xs font-mono bg-red-500/20 text-red-400 border border-red-500/30">
+                    <span className="px-2 py-1 text-xs font-sans bg-red-500/20 text-red-400 border border-red-500/30">
                       NEW
                     </span>
                   )}
@@ -343,7 +325,7 @@ export function NewsSection() {
               <h2 className="text-white text-xl font-medium mb-4">
                 {selectedNews.title}
               </h2>
-              <div className="text-gray-400 font-mono text-sm mb-6">
+              <div className="text-gray-400 font-sans text-sm mb-6">
                 发布时间: {formatDate(selectedNews.date)}
               </div>
 
