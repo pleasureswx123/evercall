@@ -29,8 +29,11 @@ export default function Home() {
   const [direction, setDirection] = useState(0) // -1: 向上, 1: 向下, 0: 初始
   const [isAnimating, setIsAnimating] = useState(false)
   const mainRef = useRef<HTMLDivElement>(null)
-  const wheelTimeout = useRef<NodeJS.Timeout | null>(null)
+  const contentRefs = useRef<(HTMLDivElement | null)[]>(Array(sections.length).fill(null))
   const touchStartY = useRef(0)
+  const lastScrollTime = useRef(Date.now())
+  const scrollLockTimer = useRef<NodeJS.Timeout | null>(null)
+  const [scrollLocked, setScrollLocked] = useState(false)
 
   // 加载动画
   useEffect(() => {
@@ -48,105 +51,149 @@ export default function Home() {
     return () => clearInterval(timer)
   }, [])
 
-  // 处理滚轮事件
-  useEffect(() => {
-    if (loading) return
+  // 检查内容是否可滚动
+  const isContentScrollable = (index: number): boolean => {
+    const contentRef = contentRefs.current[index]
+    if (!contentRef) return false
+    
+    return contentRef.scrollHeight > contentRef.clientHeight
+  }
 
-    const handleWheel = (e: WheelEvent) => {
-      e.preventDefault()
-
-      if (isAnimating) return
-
-      // 清除之前的定时器
-      if (wheelTimeout.current) {
-        clearTimeout(wheelTimeout.current)
-      }
-
-      // 设置新的定时器，防止连续滚动
-      wheelTimeout.current = setTimeout(() => {
-        const delta = e.deltaY
-
-        if (delta > 0 && activeSection < sections.length - 1) {
-          // 向下滚动
-          setDirection(1)
-          setIsAnimating(true)
-          setActiveSection(prev => prev + 1)
-        } else if (delta < 0 && activeSection > 0) {
-          // 向上滚动
-          setDirection(-1)
-          setIsAnimating(true)
-          setActiveSection(prev => prev - 1)
-        }
-      }, 50)
+  // 检查内容是否已滚动到顶部或底部
+  const isAtScrollBoundary = (index: number, direction: number): boolean => {
+    const contentRef = contentRefs.current[index]
+    if (!contentRef) return true
+    
+    // 向上滚动且已到顶部
+    if (direction < 0 && contentRef.scrollTop <= 0) {
+      return true
     }
-
-    // 处理触摸事件（移动端支持）
-    const handleTouchStart = (e: TouchEvent) => {
-      touchStartY.current = e.touches[0].clientY
+    
+    // 向下滚动且已到底部
+    if (direction > 0 && 
+        contentRef.scrollTop + contentRef.clientHeight >= 
+        contentRef.scrollHeight - 2) {
+      return true
     }
+    
+    return false
+  }
 
-    const handleTouchEnd = (e: TouchEvent) => {
-      if (isAnimating) return
-
-      const touchEndY = e.changedTouches[0].clientY
-      const deltaY = touchStartY.current - touchEndY
-
-      // 检测是否为有效的滑动（防止轻触）
-      if (Math.abs(deltaY) > 50) {
-        if (deltaY > 0 && activeSection < sections.length - 1) {
-          // 向上滑动（屏幕上移）
-          setDirection(1)
-          setIsAnimating(true)
-          setActiveSection(prev => prev + 1)
-        } else if (deltaY < 0 && activeSection > 0) {
-          // 向下滑动（屏幕下移）
-          setDirection(-1)
-          setIsAnimating(true)
-          setActiveSection(prev => prev - 1)
-        }
-      }
-    }
-
-    // 处理键盘事件
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (isAnimating) return
-
-      if (e.key === 'ArrowDown' && activeSection < sections.length - 1) {
+  // 处理滚动事件
+  const handleWheel = (e: WheelEvent) => {
+    // 如果正在动画中，不处理滚动
+    if (isAnimating) return
+    
+    // 获取滚动方向
+    const direction = e.deltaY > 0 ? 1 : -1
+    
+    // 检查当前内容是否可滚动
+    const contentScrollable = isContentScrollable(activeSection)
+    
+    // 如果内容不可滚动，或者已经滚动到边界，则切换区块
+    if (!contentScrollable || isAtScrollBoundary(activeSection, direction)) {
+      // 防止频繁切换区块
+      const now = Date.now()
+      if (now - lastScrollTime.current < 500) return
+      lastScrollTime.current = now
+      
+      // 切换区块
+      if (direction > 0 && activeSection < sections.length - 1) {
+        e.preventDefault()
         setDirection(1)
         setIsAnimating(true)
         setActiveSection(prev => prev + 1)
-      } else if (e.key === 'ArrowUp' && activeSection > 0) {
+      } else if (direction < 0 && activeSection > 0) {
+        e.preventDefault()
         setDirection(-1)
         setIsAnimating(true)
         setActiveSection(prev => prev - 1)
       }
     }
+  }
 
-    const mainElement = mainRef.current
-    if (mainElement) {
-      mainElement.addEventListener('wheel', handleWheel, { passive: false })
-      mainElement.addEventListener('touchstart', handleTouchStart, { passive: true })
-      mainElement.addEventListener('touchend', handleTouchEnd, { passive: true })
-      window.addEventListener('keydown', handleKeyDown)
+  // 设置滚动事件监听
+  useEffect(() => {
+    if (loading) return
+
+    // 处理触摸事件（移动端支持）
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY.current = e.touches[0].clientY
+    }
+    
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (isAnimating) return
+      
+      const touchEndY = e.changedTouches[0].clientY
+      const deltaY = touchStartY.current - touchEndY
+      const direction = deltaY > 0 ? 1 : -1
+      
+      // 检查当前内容是否可滚动
+      const contentScrollable = isContentScrollable(activeSection)
+      
+      // 检测是否为有效的滑动（防止轻触）
+      if (Math.abs(deltaY) > 50) {
+        // 如果内容不可滚动，或者已经滚动到边界，则切换区块
+        if (!contentScrollable || isAtScrollBoundary(activeSection, direction)) {
+          if (deltaY > 0 && activeSection < sections.length - 1) {
+            // 向上滑动（屏幕上移）
+            setDirection(1)
+            setIsAnimating(true)
+            setActiveSection(prev => prev + 1)
+          } else if (deltaY < 0 && activeSection > 0) {
+            // 向下滑动（屏幕下移）
+            setDirection(-1)
+            setIsAnimating(true)
+            setActiveSection(prev => prev - 1)
+          }
+        }
+      }
+    }
+    
+    // 处理键盘事件
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (isAnimating) return
+      
+      const direction = e.key === 'ArrowDown' ? 1 : e.key === 'ArrowUp' ? -1 : 0
+      if (direction === 0) return
+      
+      // 检查当前内容是否可滚动
+      const contentScrollable = isContentScrollable(activeSection)
+      
+      // 如果内容不可滚动，或者已经滚动到边界，则切换区块
+      if (!contentScrollable || isAtScrollBoundary(activeSection, direction)) {
+        if (direction > 0 && activeSection < sections.length - 1) {
+          e.preventDefault()
+          setDirection(1)
+          setIsAnimating(true)
+          setActiveSection(prev => prev + 1)
+        } else if (direction < 0 && activeSection > 0) {
+          e.preventDefault()
+          setDirection(-1)
+          setIsAnimating(true)
+          setActiveSection(prev => prev - 1)
+        }
+      }
     }
 
+    // 添加事件监听
+    window.addEventListener('wheel', handleWheel, { passive: false })
+    window.addEventListener('touchstart', handleTouchStart, { passive: true })
+    window.addEventListener('touchend', handleTouchEnd, { passive: true })
+    window.addEventListener('keydown', handleKeyDown)
+
     return () => {
-      if (mainElement) {
-        mainElement.removeEventListener('wheel', handleWheel)
-        mainElement.removeEventListener('touchstart', handleTouchStart)
-        mainElement.removeEventListener('touchend', handleTouchEnd)
-      }
+      window.removeEventListener('wheel', handleWheel)
+      window.removeEventListener('touchstart', handleTouchStart)
+      window.removeEventListener('touchend', handleTouchEnd)
       window.removeEventListener('keydown', handleKeyDown)
-      if (wheelTimeout.current) {
-        clearTimeout(wheelTimeout.current)
-      }
     }
   }, [loading, activeSection, isAnimating])
 
   // 导航到指定区块
   const navigateToSection = (index: number) => {
     if (isAnimating || index === activeSection) return
-
+    
     setDirection(index > activeSection ? 1 : -1)
     setIsAnimating(true)
     setActiveSection(index)
@@ -155,6 +202,14 @@ export default function Home() {
   // 动画完成后的回调
   const handleAnimationComplete = () => {
     setIsAnimating(false)
+    
+    // 动画完成后，将内容滚动到顶部
+    if (direction > 0) {
+      const contentRef = contentRefs.current[activeSection]
+      if (contentRef) {
+        contentRef.scrollTop = 0
+      }
+    }
   }
 
   // 加载屏幕
@@ -266,7 +321,7 @@ export default function Home() {
         />
       </div>
 
-      {/* 主内容区域 - 改为上下结构 */}
+      {/* 主内容区域 - 上下结构 */}
       <div className="ml-20 h-screen w-[calc(100%-5rem)] flex flex-col">
         {/* 上部分：主要内容区域 */}
         <div className="flex-grow relative preserve-3d">
@@ -281,15 +336,45 @@ export default function Home() {
               onAnimationComplete={handleAnimationComplete}
               className="absolute inset-0 w-full h-full"
             >
-              {/* 当前活动区块 */}
-              <div className="w-full h-full">
-                {(() => {
-                  const Component = sections[activeSection].component
-                  return <Component />
-                })()}
+              {/* 当前活动区块 - 垂直水平居中 */}
+              <div className="w-full h-full flex items-center justify-center">
+                {/* 内容容器 - 可滚动 */}
+                <div ref={el => contentRefs.current[activeSection] = el}
+                  className="section-content w-full h-full overflow-y-auto custom-scrollbar"
+                >
+                  <div className="min-h-full w-full">
+                      {(() => {
+                        const Component = sections[activeSection].component
+                        return <Component />
+                      })()}
+                  </div>
+                </div>
               </div>
             </motion.div>
           </AnimatePresence>
+
+          {/* 滚动指示器 - 当内容可滚动时显示 */}
+          {isContentScrollable(activeSection) && (
+            <motion.div
+              className="absolute bottom-16 right-8 text-cyber-blue text-sm"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1, duration: 0.8 }}
+            >
+              <div className="flex items-center gap-2">
+                <span>滚动查看更多</span>
+                <motion.div
+                  className="w-5 h-5"
+                  animate={{ y: [0, 5, 0] }}
+                  transition={{ repeat: Infinity, duration: 1.5 }}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 15.5a1 1 0 01-.71-.29l-4-4a1 1 0 111.42-1.42L12 13.1l3.29-3.3a1 1 0 111.42 1.42l-4 4a1 1 0 01-.71.28z"/>
+                  </svg>
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
 
           {/* 页面指示器 */}
           <div className="fixed right-8 top-1/2 transform -translate-y-1/2 z-50 flex flex-col gap-4">
@@ -299,10 +384,11 @@ export default function Home() {
                 initial="initial"
                 animate="animate"
                 variants={indicatorVariants}
-                className={`w-3 h-3 rounded-full cursor-pointer transition-all duration-300 ${index === activeSection
-                    ? 'bg-cyber-blue w-4 h-4 shadow-[0_0_10px_rgba(0,255,255,0.8)]'
+                className={`w-3 h-3 rounded-full cursor-pointer transition-all duration-300 ${
+                  index === activeSection 
+                    ? 'bg-cyber-blue w-4 h-4 shadow-[0_0_10px_rgba(0,255,255,0.8)]' 
                     : 'bg-gray-500 hover:bg-gray-300'
-                  }`}
+                }`}
                 onClick={() => navigateToSection(index)}
                 style={{ transition: 'all 0.3s ease', transitionDelay: `${index * 0.1}s` }}
               />
