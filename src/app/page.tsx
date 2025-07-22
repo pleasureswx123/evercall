@@ -339,7 +339,11 @@ export default function Home() {
               {/* 当前活动区块 - 垂直水平居中 */}
               <div className="w-full h-full flex items-center justify-center">
                 {/* 内容容器 - 可滚动 */}
-                <div ref={el => contentRefs.current[activeSection] = el}
+                <div 
+                  ref={(el: HTMLDivElement | null) => {
+                    contentRefs.current[activeSection] = el;
+                    return undefined;
+                  }}
                   className="section-content w-full h-full overflow-y-auto custom-scrollbar"
                 >
                   <div className="min-h-full w-full">
