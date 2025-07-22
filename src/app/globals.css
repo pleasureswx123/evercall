@@ -1100,8 +1100,9 @@ html {
   .animate-quantum-tunnel {
     animation-duration: 1.5s;
   }
-}/
-* 高级区域切换效果 */
+}
+
+/* 高级区域切换效果 */
 
 /* 量子传送效果 */
 @keyframes quantum-teleport {

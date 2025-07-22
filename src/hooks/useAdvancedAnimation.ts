@@ -4,7 +4,6 @@ import { useInView } from 'framer-motion'
 import { useRef, useEffect, useState } from 'react'
 
 interface AnimationConfig {
-  threshold?: number
   triggerOnce?: boolean
   rootMargin?: string
 }
@@ -15,9 +14,7 @@ export function useAdvancedAnimation(config: AnimationConfig = {}) {
   const [animationStage, setAnimationStage] = useState<'idle' | 'entering' | 'active' | 'exiting'>('idle')
   
   const isInView = useInView(ref, {
-    threshold: config.threshold || 0.1,
-    once: config.triggerOnce || false,
-    margin: config.rootMargin || '-100px'
+    once: config.triggerOnce || false
   })
 
   useEffect(() => {
