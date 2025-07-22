@@ -150,7 +150,7 @@ export function NewsSection() {
       <div className="relative z-10 p-8">
         <div className="max-w-7xl mx-auto">
           {/* 头部区域 */}
-          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-12">
+          <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between mb-6">
             <div className="mb-6 lg:mb-0">
               <div className="flex items-center mb-4">
                 <div className="w-2 h-2 bg-cyber-blue rounded-full animate-pulse mr-3"></div>
@@ -190,7 +190,7 @@ export function NewsSection() {
           </div>
 
           {/* 标签页导航 */}
-          <div className="mb-8">
+          <div className="mb-6">
             <div className="flex flex-wrap gap-2 mb-6">
               {[
                 { key: 'all', label: '全部', count: newsData.length },

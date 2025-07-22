@@ -175,11 +175,13 @@ export function CharacterShowcase() {
 
               {/* 交互按钮 */}
               <div className="mt-8 flex space-x-4">
-                <button className="bg-cyber-blue text-black px-6 py-3 font-sans font-bold hover:bg-white transition-all duration-300 transform hover:scale-105">
-                  开始对话
+                <button className="bg-cyber-blue text-black px-8 py-3 font-sans font-bold hover:bg-white transition-all duration-300 cyber-border animate-button-glow relative overflow-hidden group">
+                  <span className="relative z-10">开始对话</span>
+                  <span className="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
                 </button>
-                <button className="border border-cyber-blue text-cyber-blue px-6 py-3 font-sans hover:bg-cyber-blue hover:text-black transition-all duration-300">
-                  了解更多
+                <button className="border border-cyber-blue text-cyber-blue px-8 py-3 font-sans hover:bg-cyber-blue hover:text-black transition-all duration-300 relative overflow-hidden group">
+                  <span className="relative z-10">了解更多</span>
+                  <span className="absolute inset-0 bg-cyber-blue transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></span>
                 </button>
               </div>
             </div>

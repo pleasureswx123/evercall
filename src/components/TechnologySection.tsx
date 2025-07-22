@@ -155,16 +155,16 @@ export function TechnologySection() {
         </div>
       </div>
 
-      <div className="relative z-10 p-8">
+      <div className="relative z-10 p-5">
         <div className="max-w-7xl mx-auto">
           {/* 头部区域 */}
-          <div className="text-center mb-8">
-            <div className="flex items-center justify-center mb-6">
+          <div className="text-center mb-5">
+            <div className="flex items-center justify-center mb-2">
               <div className="w-3 h-3 bg-cyber-blue rounded-full animate-pulse mr-4"></div>
               <div className="text-cyber-blue font-sans text-sm">TECHNOLOGY ARCHITECTURE</div>
               <div className="w-3 h-3 bg-cyber-blue rounded-full animate-pulse ml-4"></div>
             </div>
-            <div className="text-white font-orbitron text-4xl mb-6">技术架构</div>
+            <div className="text-white font-orbitron text-4xl mb-5">技术架构</div>
             <div className="text-gray-400 max-w-3xl mx-auto leading-relaxed">
               探索Evercall背后的先进技术，了解我们如何通过创新的AI技术栈打造真实的情感陪伴体验
             </div>
@@ -310,7 +310,7 @@ export function TechnologySection() {
                   {selectedTech.features.map((feature, idx) => (
                     <div
                       key={idx}
-                      className={`p-4 border border-${selectedTech.color}/30 ${selectedTech.bgColor} text-center`}
+                      className={`p-4 ${selectedTech.bgColor} text-center`}
                     >
                       <div className={`text-${selectedTech.color} font-sans text-sm`}>
                         {feature}
@@ -325,7 +325,7 @@ export function TechnologySection() {
                 <h3 className="text-white text-lg font-medium mb-4">性能指标</h3>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {selectedTech.metrics.map((metric, idx) => (
-                    <div key={idx} className="text-center p-6 bg-gray-800/50 border border-gray-700">
+                    <div key={idx} className="text-center p-6 bg-gray-800/50">
                       <div className={`text-${selectedTech.color} font-orbitron text-2xl mb-2`}>
                         {metric.value}{metric.unit}
                       </div>
@@ -338,14 +338,14 @@ export function TechnologySection() {
               </div>
 
               {/* 底部操作 */}
-              <div className="flex justify-center space-x-4">
+              {/* <div className="flex justify-center space-x-4">
                 <button className={`px-6 py-3 bg-${selectedTech.color} text-black font-sans hover:bg-white transition-all duration-300`}>
                   查看文档
                 </button>
                 <button className={`px-6 py-3 border border-${selectedTech.color} text-${selectedTech.color} font-sans hover:bg-${selectedTech.color} hover:text-black transition-all duration-300`}>
                   技术支持
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
