@@ -1,22 +1,26 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { CharacterShowcase } from '@/components/CharacterShowcase'
 import { NewsSection } from '@/components/NewsSection'
 import { TechnologySection } from '@/components/TechnologySection'
 import { ExperienceSection } from '@/components/ExperienceSection'
 import { SectionDivider } from '@/components/SectionDivider'
+import { SectionTransition } from '@/components/SectionTransition'
+import { TransitionManager } from '@/components/TransitionManager'
+import { AnimationOrchestrator } from '@/components/AnimationOrchestrator'
 import { SideNav } from '@/components/SideNav'
 import { HomeSection } from '@/components/HomeSection'
 import { AboutSection } from '@/components/AboutSection'
-import { Footer } from '@/components/Footer'
 import { FooterSection } from '@/components/FooterSection'
 
 export default function Home() {
   const [loading, setLoading] = useState(true)
   const [loadingProgress, setLoadingProgress] = useState(0)
   const [activeSection, setActiveSection] = useState('home')
+  const [isTransitioning, setIsTransitioning] = useState(false)
+  const [previousSection, setPreviousSection] = useState('home')
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -33,16 +37,29 @@ export default function Home() {
     return () => clearInterval(timer)
   }, [])
 
-  // 平滑滚动到指定区域
+  // 增强的区域切换函数，包含过渡效果
   const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId)
-    if (section) {
-      window.scrollTo({
-        top: section.offsetTop,
-        behavior: 'smooth'
-      })
-      setActiveSection(sectionId)
-    }
+    if (sectionId === activeSection || isTransitioning) return
+    
+    setIsTransitioning(true)
+    setPreviousSection(activeSection)
+    
+    // 添加切换动画延迟
+    setTimeout(() => {
+      const section = document.getElementById(sectionId)
+      if (section) {
+        window.scrollTo({
+          top: section.offsetTop,
+          behavior: 'smooth'
+        })
+        setActiveSection(sectionId)
+        
+        // 动画完成后重置状态
+        setTimeout(() => {
+          setIsTransitioning(false)
+        }, 800)
+      }
+    }, 200)
   }
 
   // 监听滚动位置，更新活动导航项
@@ -108,12 +125,18 @@ export default function Home() {
   }
 
   return (
-    <main className="min-h-screen bg-black text-white relative overflow-hidden">
-      {/* 网格背景 */}
-      <div className="absolute inset-0 bg-cyber-grid bg-grid opacity-20"></div>
+    <AnimationOrchestrator activeSection={activeSection}>
+      <TransitionManager 
+        isTransitioning={isTransitioning}
+        fromSection={previousSection}
+        toSection={activeSection}
+      >
+        <main className="min-h-screen bg-black text-white relative overflow-hidden">
+          {/* 网格背景 */}
+          <div className="absolute inset-0 bg-cyber-grid bg-grid opacity-20"></div>
 
-      {/* 侧边导航 */}
-      <SideNav activeSection={activeSection} scrollToSection={scrollToSection} />
+          {/* 侧边导航 */}
+          <SideNav activeSection={activeSection} scrollToSection={scrollToSection} />
 
       {/* 主内容区域 */}
       <motion.div 
@@ -123,47 +146,111 @@ export default function Home() {
         transition={{ duration: 0.5 }}
       >
         {/* 首页区域 */}
-        <HomeSection />
+        <SectionTransition id="home" animationType="fade" delay={0}>
+          <HomeSection />
+        </SectionTransition>
 
-        {/* 首页与角色展示区块之间的分隔 */}
-        <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
-        <SectionDivider variant="gradient" color="purple" />
+        {/* 动态分隔器 */}
+        <motion.div
+          className="relative"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: false }}
+          transition={{ duration: 1, ease: "easeInOut" }}
+        >
+          <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
+          <SectionDivider variant="gradient" color="purple" />
+        </motion.div>
 
         {/* 角色展示区块 */}
-        <CharacterShowcase />
+        <SectionTransition id="characters" animationType="slideLeft" delay={0.2}>
+          <CharacterShowcase />
+        </SectionTransition>
 
-        {/* 角色展示与新闻区块之间的分隔 */}
-        <SectionDivider variant="gradient" color="purple" />
+        {/* 动态分隔器 */}
+        <motion.div
+          className="relative"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: false }}
+          transition={{ duration: 1, ease: "easeInOut" }}
+        >
+          <SectionDivider variant="gradient" color="purple" />
+        </motion.div>
 
         {/* 新闻/公告区块 */}
-        <NewsSection />
+        <SectionTransition id="news" animationType="slideRight" delay={0.2}>
+          <NewsSection />
+        </SectionTransition>
 
-        {/* 新闻与技术区块之间的分隔 */}
-        <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
-        <SectionDivider variant="gradient" color="purple" />
+        {/* 动态分隔器 */}
+        <motion.div
+          className="relative"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: false }}
+          transition={{ duration: 1, ease: "easeInOut" }}
+        >
+          <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
+          <SectionDivider variant="gradient" color="purple" />
+        </motion.div>
 
         {/* 世界观/技术区块 */}
-        <TechnologySection />
+        <SectionTransition id="tech" animationType="slideUp" delay={0.2}>
+          <TechnologySection />
+        </SectionTransition>
 
-        {/* 技术与体验区块之间的分隔 */}
-        <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
-        <SectionDivider variant="gradient" color="purple" />
+        {/* 动态分隔器 */}
+        <motion.div
+          className="relative"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: false }}
+          transition={{ duration: 1, ease: "easeInOut" }}
+        >
+          <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
+          <SectionDivider variant="gradient" color="purple" />
+        </motion.div>
 
         {/* 体验区块 */}
-        <ExperienceSection />
+        <SectionTransition id="experience" animationType="scale" delay={0.2}>
+          <ExperienceSection />
+        </SectionTransition>
 
-        {/* 体验与关于我们区块之间的分隔 */}
-        <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
-        <SectionDivider variant="gradient" color="purple" />
+        {/* 动态分隔器 */}
+        <motion.div
+          className="relative"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: false }}
+          transition={{ duration: 1, ease: "easeInOut" }}
+        >
+          <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
+          <SectionDivider variant="gradient" color="purple" />
+        </motion.div>
 
-        {/* 关于我们区块 - 带Tab选项卡 */}
-        <AboutSection />
+        {/* 关于我们区块 */}
+        <SectionTransition id="about" animationType="rotate" delay={0.2}>
+          <AboutSection />
+        </SectionTransition>
 
-        <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
-        <SectionDivider variant="gradient" color="purple" />
+        <motion.div
+          className="relative"
+          initial={{ scaleX: 0 }}
+          whileInView={{ scaleX: 1 }}
+          viewport={{ once: false }}
+          transition={{ duration: 1, ease: "easeInOut" }}
+        >
+          <div className="h-px bg-gradient-to-r from-transparent via-cyber-blue to-transparent"></div>
+          <SectionDivider variant="gradient" color="purple" />
+        </motion.div>
 
-        <FooterSection />
+        <SectionTransition id="footer" animationType="fade" delay={0}>
+          <FooterSection />
+        </SectionTransition>
       </motion.div>
     </main>
+    </TransitionManager>
+    </AnimationOrchestrator>
   )
 }
